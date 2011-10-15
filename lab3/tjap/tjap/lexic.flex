@@ -89,14 +89,19 @@ ID [A-Z][a-zA-Z0-9_]*
 
 "%" printf( "Операция: %s\n", yytext );
 
-[+-]?[1-9]{DIGIT}* printf("Целочисленная константа: %s \n", yytext);
+[+-]?[1-9]{DIGIT}* 
+{
+	int int_const = atoi(yytext);
+	printf("Целочисленная константа: %d \n", int_const);
+	yyval.int_const = int_const;
+	return INT;
+}
 
 [-+]?{DIGIT}*\.?{DIGIT}+([eE][-+]?{DIGIT}+)? {
-	sscanf(yytext, "%g", 
-	
-	
-	&_float);
-	printf("Дробная константа: %g \n", _float);
+	// для перевода 
+	float __float;
+	sscanf(yytext, "%g", &__float);
+	printf("Дробная константа: %g \n", __float);
 }
 (0x[0-9a-f]+)|(0X[0-9A-F]+) {
 	sscanf(yytext, "%x", &_int);
