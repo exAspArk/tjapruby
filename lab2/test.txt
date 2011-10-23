@@ -1,9 +1,10 @@
 
 Constant="this
  is\nstroka"
-var = 'this is rtnstroka'
 zr = "=begindfdhjghkfk=end\"\f\a\\\t\r\b\a"
 str = "\\\\\'\\" 
+var = 'this is rtnstroka'
+
 =begin
 Hello
 world
@@ -11,28 +12,31 @@ world
 !
 =begin
 =end
-3>>4
-a=2
-[[1, 2], [3, 4]]
-str = "Я - строка"
+
+a = 2
+b = ((3+4.0)*a/4 > a+=3**2)
+b *= 2 while a <= 100
+b -= 10 until a < 100
+b +=7
+b/=8
+a++
+b+++a
+
 str.class #=> String
 str.class.superclass #=> Object
-"a".."z"
-"a"..."z" # то же, что и "a".."y"
-1..100
-1...100 # то же, что и 1..99
-c = a**3
-c = a/3*a/a*2*var
+gets 
+print "hello good\n" 
+
 class s
-	@@c
+@@c
   def initialize(n, a, d)
-    @n     = n
-    @a   = a
+    @n = n
+    @a  = a
     @d = d
     return @n+@a-a
   end
   
-    protected         
+  protected         
       def method2   
       end
   private           
@@ -43,15 +47,16 @@ class s
       end
 end
 
-b *= 2 while a < 100
-b -= 10 until a < 100
+"a".."z"
+"a"..."z" # то же, что и "a".."y"
+1..100
+1...100 # то же, что и 1..99
 
-b +=7
-b/=8
+3>>4
+[[1, 2], [3, 4]]
 a = array [1, -4, 3, -7, -1]
 if (a[0] > a[2])
 	puts a[1]
-gets 
 #puts -1
 #geadsa -1
 #pfasaf -1
@@ -68,13 +73,4 @@ party = nil
 if party == nil
 	arr1.each { |i| print i, " "} if party == "1"
 	arr2.each { |i| print i, " "} if party == "4"
-	print "hello good\n" 
 end
-
-a++
-b+++a
-=begin
-Hello
-world
-!
-=en
