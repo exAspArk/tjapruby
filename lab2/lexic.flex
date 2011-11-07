@@ -5,16 +5,6 @@
 #include <stdlib.h>
 #include <locale.h>
 
-int _int;                   //output int
-float _float;               //output float
-char tmp[100];              // для перевода числа из двоичной в десятичную систему счисления
-int len;                    // strings length
-int i;                      // counter
-char tmp[100] = "";         // для перевода числа из двоичной в десятичную систему счисления
-char comment[10000] = "";   // comment
-char text[10000] = "";      // comment
-char strings[1000] = "";	// for output
-char s[2];
 %}
 
 %option noyywrap
@@ -33,7 +23,22 @@ ID    [A-Z][a-zA-Z0-9_]*
 
 %%
 
+%{
+
+int _int;                   //output int
+float _float;               //output float
+int len;                    // strings length
+int i;                      // counter
+char tmp[100] = "";         // для перевода числа из двоичной в десятичную систему счисления
+char comment[10000] = "";   // comment
+char text[10000] = "";      // comment
+char strings[1000] = "";	// for output
+char s[2];
+
+%}
+
 "+"     printf("Операция: %s\n", yytext);
+"."     printf("Операция: %s\n", yytext);
 "-"	    printf("Операция: %s\n", yytext);	
 "*"	    printf("Операция: %s\n", yytext);
 "/"	    printf("Операция: %s\n", yytext);
@@ -96,6 +101,7 @@ ID    [A-Z][a-zA-Z0-9_]*
 }
 
 nil         printf("Ключевое слово: %s\n", yytext);
+def         printf("Ключевое слово: %s\n", yytext);
 self        printf("Ключевое слово: %s\n", yytext);
 false       printf("Ключевое слово: %s\n", yytext);
 not	        printf("Ключевое слово: %s\n", yytext);
@@ -127,19 +133,6 @@ p       printf("Метод для работы с консолью: %s\n", yytext);
 printf  printf("Метод для работы с консолью: %s\n", yytext);
 putc    printf("Метод для работы с консолью: %s\n", yytext);
 
-"." BEGIN(METHOD); 
-<METHOD>{VAR} {
-	printf("Метод: %s\n", yytext);
-	BEGIN(INITIAL);
-}
-
-"def" BEGIN(METHOD_NAME); 
-<METHOD_NAME>{VAR} {
-    printf("Ключевое слово: def\n");
-	printf("Метод: %s\n", yytext);
-	BEGIN(INITIAL);
-}
-
 {ID} {
 	strcpy(text, yytext);
 	printf("Константа: %s\n", text);
@@ -147,7 +140,7 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 
 {VAR} {
 	strcpy(text, yytext);
-	printf("Переменная: %s\n", text);
+	printf("Идентификатор: %s\n", text);
 }
 
 "$"({ID}|{VAR}) {
@@ -228,41 +221,45 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	strcat(strings, yytext);
 }
 
-<DIF_STRING>\\{DIGIT}{1,3} {
-	s[0]=atoi(&*(yytext+1));
-	s[1]=0;
+<DIF_STRING>\\[0-7]{1,3} {
+    sscanf(yytext+1,"%o",s);
+	strcat(strings, s);
+}
+
+<DIF_STRING>\\(0x[0-9a-f]{1,2})|(0X[0-9A-F]{1,2}) {
+    sscanf(yytext+1,"%x",s);
 	strcat(strings, s);
 }
 
 <DIF_STRING>\\n	{
-	strcat(strings, "\n");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\\" {
-	strcat(strings, "\"");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\\' {
-	strcat(strings, "\'");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\t	{
-	strcat(strings, "\t");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\v	{
-	strcat(strings, "\t");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\r	{
-	strcat(strings, "\r");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\f	{
-	strcat(strings, "\f");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\b	{
-	strcat(strings, "\b");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\a	{
-	strcat(strings, "\a");
+	strcat(strings, yytext);
 }
 <DIF_STRING>\\\\ {
-	strcat(strings, "\\");
+	strcat(strings, yytext);
 }
 <DIF_STRING>"\"" {
 	printf("Строковая константа: %s\n", strings);
