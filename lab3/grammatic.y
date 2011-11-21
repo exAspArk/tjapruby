@@ -37,7 +37,7 @@ struct Programm *prg;
 %type <stm>class_stmt
 %type <id_l>id_list
 %type <id_l>id_listE
-%type <exp>init_array_expr
+
 
 %token CLASS
 %token NIL
@@ -156,4 +156,22 @@ id_list: id_list ',' ID		{$$ = add_to_id_list($1,$3);}
 		| ID				{$$ = create_id_list($1);}									
 		;
 		
+expr: CONST													{$$ = create_expr(Const);}
+	| ID													{$$ = create_expr(Id);}
+	| STRING												{$$ = create_expr(String);}
+	| INT													{$$ = create_expr(Int);}
+	| FLOAT													{$$ = create_expr(Float);}
+	| BOOL													{$$ = create_expr(Bool);}
+	| NIL													{$$ = create_expr(Nil);}
+	| SELF													{$$ = create_expr(Self);
+	| expr '+' expr											{$$ = create_two_expr(Plus,$1,$3);}
+	| expr '-' expr											{$$ = create_two_expr(Minus,$1,$3);}
+	| expr '*' expr											{$$ = create_two_expr(Multiply,$1,$3);}
+	| expr '/' expr											{$$ = create_two_expr(Division,$1,$3);}
+	| expr '<' expr											{$$ = create_two_expr(Less,$1,$3);}
+	| expr '>' expr											{$$ = create_two_expr(More,$1,$3);}
+	| expr '=' expr											{$$ = create_two_expr(Assign,$1,$3);}
+	| '-' expr %prec UMINUS									{$$ = create_one_expr(Uminus, $2);}
+	| '+' expr %prec UPLUS									{$$ = create_one_expr(Uplus, $2);}
+	;
 %%
