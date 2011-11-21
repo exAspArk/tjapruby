@@ -13,6 +13,7 @@ struct Programm *prg;
 	struct Expression *exp;
 	struct Statement *stm;
 	struct Program *prg;
+	struct Name_and_type_var *var;
 	struct StatementsList *stm_l;
 	struct ExpressionsList *exp_l;
 	struct ExpressionsList * id_l;
@@ -73,14 +74,17 @@ struct Programm *prg;
 %left NOTWORD
 %right '=' ADDASSIGN SUBASSIGN MULASSIGN DIVASSIGN
 %left TWOPOINT THREEPOINT
-%left OR
-%left AND
+%left OR AND
 %left '-' '+'
 %left '*' '/'
-%left '>' '<'
+%left '>' '<' LESSEQ MOREEQ
+%left EQ NEQ LESSMORE
 %left UPLUS NOT UMINUS
 %left '[' ']' '.'
+%left DOUBLECOLON
+
 %nonassoc ')'
+
 %start program
 
 %%
@@ -191,13 +195,19 @@ expr: CONST													{$$ = create_expr(Const)}
 	| expr '<' expr											{$$ = create_two_expr(Less,$1,$3)}
 	| expr '>' expr											{$$ = create_two_expr(More,$1,$3)}
 	| expr '=' expr											{$$ = create_two_expr(Assign,$1,$3)}
+	| expr LESSEQ expr										{$$ = create_two_expr(LessEq,$1,$3);}
+	| expr MOREEQ expr										{$$ = create_two_expr(MoreEq,$1,$3);}
+	| expr EQ expr											{$$ = create_two_expr(Equivalent,$1,$3);}
+	| expr NEQ expr											{$$ = create_two_expr(NotEquivalent,$1,$3);}
+	| expr LESSMORE expr									{$$ = create_two_expr(LessMore,$1,$3);}
 	| expr ANDWORD expr 									{$$ = create_two_expr(AndWord,$1,$3)}
 	| expr ORWORD expr										{$$ = create_two_expr(OrWord,$1,$3)}
 	| NOTWORD expr %prec NOTWORD							{$$ = create_unar_op_expr(NotWord, $2);}
 	| expr OR expr											{$$ = create_two_expr(Or,$1,$3);}
 	| expr AND expr											{$$ = create_two_expr(And,$1,$3);}
+	| NOT expr %prec NOT   									{$$ = create_unar_op_expr(Not, $2);}	
+	| expr DOUBLECOLON expr									{$$ = create_two_expr(Doublecolon,$1,$3);}
 	| expr ADDASSIGN expr									{$$ = create_two_expr(AddAssign,$1,$3);}		
-	| NOT expr %prec NOT   									{$$ = create_unar_op_expr(Not, $2);}
 	| expr SUBASSIGN expr									{$$ = create_two_expr(SubAssign,$1,$3);}
 	| expr MULASSIGN expr									{$$ = create_two_expr(MulAssign,$1,$3);}
 	| expr DIVASSIGN expr									{$$ = create_two_expr(DivAssign,$1,$3);}	
@@ -217,6 +227,145 @@ expr: CONST													{$$ = create_expr(Const)}
 	| expr '[' expr ']'										{$$ = CreateCallArrayExpr($1,$3);}
 	;
 	
-/*init_array_expr: '[' expr_list ']'                          {$$ = CreateArray($2);}
+/*init_array_expr: '[' expr_list ']'                        {$$ = CreateArray($2);}
 	;	*/
 %%
+
+enum Access_rule
+{
+	Public,
+	Protected,
+	Private
+};
+
+enum Var_type 
+{
+	CONSTANT,		// константа: Var  
+	LOCALVAR,		// локальная переменная: var или _var 
+	GLOBALVAR,		// глобальная переменная: $var 
+	CLASSVAR,		// переменная класса: @@var 
+	OBJECTVAR		// переменная объекта: @var 
+};
+
+struct Name_and_type_var
+{
+	char* name_var;		// имя переменной 
+	enum Var_type type;	// её тип 
+};
+
+enum Expr_type {
+	Int,			// целое число 
+	Float,			// вещественное число 
+	Array,			// массив 
+	String,			// строка 
+	Const,			// константа 
+	Bool,			// догический тип
+	expDef,			// вызов метода
+	CallArray,		// вызов массива 
+	Id,				// идентификатор 
+	Plus,			// бинарный плюс 
+	Minus,			// бинарный минус 
+	Multiply,		// умножение 
+	Division,		// деление  
+	Uminus,			// унарный минус 
+	Uplus,			// унарный плюс
+	Assign,			// присвавивание 
+	AddAssign,		// +=
+	SubAssign,		// -= 
+	MultiAssign,	// *= 
+	DivAssign,		// /= 
+	More,			// > 
+	Less,			// < 
+	MoreEq,			// >= 
+	LessEq,			// <= 
+	LessMore,		// <=> 
+	NotEquivalent,	// != 
+	Equivalent,		// == 
+	Or,				// ||  
+	And,			// && 
+	OrWord,			// or 
+	AndWord,		// and 
+	Not,			// ! 
+	NotWord,		// not 
+	TwoPoint,		// .. 
+	ThreePoint,		// ... 
+	Self,			// self 
+	Nil,			// nil 
+	Doublecolon,	// :: 
+
+};
+
+enum Stmt_type{
+	While,
+	If, 
+	Class,
+	For, 
+	Then, 
+	Do, 
+	Def,  
+	Else, 
+	Break, 
+	Return,
+	Until, 
+	Expr,
+	stPublic,
+	stPrivate,
+	stProtected
+};
+
+struct Expression
+{
+	enum Expr_type type;			// тип выражения
+	
+	// значение выражения
+	long   int_const;				// целочисленная константа
+	float  float_const;				// дробная константа
+	char * string_const;			// строковая константа '' и ""
+	int	   bool_const;				// логическое значение 
+									// 0 - false
+									// 1 - true
+
+	struct Name_and_type_var * var;		// тип/доступ переменной
+	struct Expressions_list * expr_List; //список выражений
+	struct Expression * left;			// левый операнд
+	struct Expression * right;			// правый операнд
+
+    char* name; // имя
+	struct Expression * next;		// следущее выражение
+};
+
+struct Expressions_list 
+{
+	struct Expression * expr;		// начальное выражение
+	struct Expression * next;		// следующее выражение
+};
+
+struct Statement
+{
+	enum Stmt_type type;				// тип выражения
+	struct Expression * expr;			// выражение для оператора
+	struct Expression * id;				//идентификатор
+	struct Expression * expr_base;   	// предок класса
+	struct ExpressionsList * expr_list;	// выражения для оператора
+	struct Statements_list * block;		// указатель на блок 
+	struct Statement * next;			// следующий оператор
+	struct Expressions_list * id_list; 	// список параметров
+	struct Statement * def_body;	  		// функция (используется при создании правил доступа)
+
+	// часть для классов
+	struct Name_and_type_var* name_class;			// имя класса
+	struct Name_and_type_var* name_parent_class;	// имя родительского класса
+};
+
+struct Statements_list
+{
+	struct Statement * stmt;
+	struct Statement * next;
+};
+
+struct Program
+{
+	struct Statements_list * stmts;
+};
+
+
