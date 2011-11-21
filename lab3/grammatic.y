@@ -37,7 +37,7 @@ struct Programm *prg;
 %type <stm>class_stmt
 %type <id_l>id_list
 %type <id_l>id_listE
-%type <exp>init_array_expr
+/*%type <exp>init_array_expr*/
 
 %token CLASS
 %token NIL
@@ -64,7 +64,6 @@ struct Programm *prg;
 %token PUBLIC
 %token PRIVATE
 %token PROTECTED
-%token ARRAY
 
 %token <int_const>INT
 %token <float_const>FLOAT
@@ -78,12 +77,14 @@ struct Programm *prg;
 %left AND
 %left '-' '+'
 %left '*' '/'
-%left USUB UPLUS NOT UMINUS
+%left '>' '<'
+%left UPLUS NOT UMINUS
 %left '[' ']' '.'
-%left nonassoc ')'
+%nonassoc ')'
 %start program
+
 %%
-program: stmt_list {$$ = prg = CreateProgram($1)}
+program: stmt_list {$$ = prg = create_program($1)}
 	;
 	
 stmt_list: stmt_list_ne		{$$=$1}
@@ -123,19 +124,19 @@ method_members: method_members_ne		{$$=$1}
 	|									{$$=NULL}
 	;
 	
-class_member: NL			{$$=NULL}
-		| ID NL				{$$ = CreateAccessRule(Public,$1,NULL)}
-		| def_stmt NL			{$$ = CreateAccessRule(Public,NULL,$1)}
-		| PUBLIC ':' ID NL		{$$ = CreateAccessRule(Public,$3,NULL)}		
-		| PRIVATE ':' ID NL		{$$ = CreateAccessRule(Private,$3,NULL)}		
-		| PROTECTED ':' ID NL	{$$ = CreateAccessRule(Protected,$3,NULL)}	
-		| PUBLIC def_stmt NL	{$$ = CreateAccessRule(Public,NULL,$2)}		
-		| PRIVATE def_stmt NL	{$$ = CreateAccessRule(Private,NULL,$2)}	
-		| PROTECTED def_stmt NL {$$ = CreateAccessRule(Protected,NULL,$2)}
+class_member: NL				{$$=NULL}
+		| ID NL					{$$ = create_access_rule(Public,$1,NULL)}
+		| def_stmt NL			{$$ = create_access_rule(Public,NULL,$1)}
+		| PUBLIC ':' ID NL		{$$ = create_access_rule(Public,$3,NULL)}		
+		| PRIVATE ':' ID NL		{$$ = create_access_rule(Private,$3,NULL)}		
+		| PROTECTED ':' ID NL	{$$ = create_access_rule(Protected,$3,NULL)}	
+		| PUBLIC def_stmt NL	{$$ = create_access_rule(Public,NULL,$2)}		
+		| PRIVATE def_stmt NL	{$$ = create_access_rule(Private,NULL,$2)}	
+		| PROTECTED def_stmt NL {$$ = create_access_rule(Protected,NULL,$2)}
 		;
 
-class_member_list: class_member 			{$$=CreateStmtList($1)}
-		| class_member_list class_member	{$$=AddToStmtList($1,$2)}	
+class_member_list: class_member 			{$$=create_stmt_list($1)}
+		| class_member_list class_member	{$$=add_to_stmt_list($1,$2)}	
 		 ;
 		
 if_stmt: IF expr THEN method_members_ne END 						{$$=create_if_stmt($2, $4, NULL)}
@@ -164,8 +165,8 @@ def_stmt: DEF ID NL method_members END	{$$create_def_stmt($2,NULL,$4)}
 		| DEF ID '('id_listE')' NL method_members END {$$ = create_def_stmt($2,$4,$7)}	
 		;
 		
-class_stmt: CLASS CONST NL class_member_list END 			{$$ = CreateClassStmt($2, NULL, $4)}			
-		/*| CLASS CONST '<' CONST NL class_member_list END 	{$$ = CreateClassStmt($2, $4, $6)}*/
+class_stmt: CLASS CONST NL class_member_list END 			{$$ = create_class_stmt($2, NULL, $4)}			
+		| CLASS CONST '<' CONST NL class_member_list END 	{$$ = create_class_stmt($2, $4, $6)}
 		;
 		
 id_listE: id_list	{$$=$1}									
@@ -190,20 +191,32 @@ expr: CONST													{$$ = create_expr(Const)}
 	| expr '<' expr											{$$ = create_two_expr(Less,$1,$3)}
 	| expr '>' expr											{$$ = create_two_expr(More,$1,$3)}
 	| expr '=' expr											{$$ = create_two_expr(Assign,$1,$3)}
+	| expr ANDWORD expr 									{$$ = create_two_expr(AndWord,$1,$3)}
+	| expr ORWORD expr										{$$ = create_two_expr(OrWord,$1,$3)}
+	| NOTWORD expr %prec NOTWORD							{$$ = create_unar_op_expr(NotWord, $2);}
+	| expr OR expr											{$$ = create_two_expr(Or,$1,$3);}
+	| expr AND expr											{$$ = create_two_expr(And,$1,$3);}
+	| expr ADDASSIGN expr									{$$ = create_two_expr(AddAssign,$1,$3);}		
+	| NOT expr %prec NOT   									{$$ = create_unar_op_expr(Not, $2);}
+	| expr SUBASSIGN expr									{$$ = create_two_expr(SubAssign,$1,$3);}
+	| expr MULASSIGN expr									{$$ = create_two_expr(MulAssign,$1,$3);}
+	| expr DIVASSIGN expr									{$$ = create_two_expr(DivAssign,$1,$3);}	
+	| expr TWOPOINT expr			 						{$$ = create_two_expr(TwoPoint,$1,$3);}
+	| expr THREEPOINT expr									{$$ = create_two_expr(ThreePoint,$1,$3);}	
 	| '-' expr %prec UMINUS									{$$ = create_one_expr(Uminus, $2)}
 	| '+' expr %prec UPLUS									{$$ = create_one_expr(Uplus, $2)}
-	| expr '.' ID											{$$ = CreateCallMethod($1, $3, NULL);}
-	| expr '.' ID '(' ')'									{$$ = CreateCallMethod($1, $3, NULL);}
-	| expr '.' ID '(' expr_list ')'							{$$ = CreateCallMethod($1, $3, $5);}			
-	| ID '(' ')'											{$$ = CreateCallMethod(NULL, $1, NULL);}
-	| ID '(' expr_list ')'									{$$ = CreateCallMethod(NULL, $1, $3);}
-	| SUPER													{$$ = CreateSuperExpr(NULL);}
-	| SUPER '(' ')'											{$$ = CreateSuperExpr(NULL);}
-	| SUPER '(' expr_list ')'								{$$ = CreateSuperExpr($3);}
-	| init_array_expr										{$$=$1;}
+	| expr '.' ID											{$$ = create_call_method($1, $3, NULL);}
+	| expr '.' ID '(' ')'									{$$ = create_call_method($1, $3, NULL);}
+	| expr '.' ID '(' expr_list ')'							{$$ = create_call_method($1, $3, $5);}			
+	| ID '(' ')'											{$$ = create_call_method(NULL, $1, NULL);}
+	| ID '(' expr_list ')'									{$$ = create_call_method(NULL, $1, $3);}
+	| SUPER													{$$ = create_super_expr(NULL);}
+	| SUPER '(' ')'											{$$ = create_super_expr(NULL);}
+	| SUPER '(' expr_list ')'								{$$ = create_super_expr($3);}
+	/*| init_array_expr										{$$=$1;}*/
+	| expr '[' expr ']'										{$$ = CreateCallArrayExpr($1,$3);}
 	;
 	
-init_array_expr: '[' expr_list ']'                          {$$ = CreateArray($2);}
-	| ARRAY '[' expr_list ']'								{$$ = CreateArray($3);}							
-	;	
+/*init_array_expr: '[' expr_list ']'                          {$$ = CreateArray($2);}
+	;	*/
 %%
