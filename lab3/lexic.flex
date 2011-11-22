@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <locale.h>
+#include "grammatic_struct.h"
+#include "grammatic_tab.h"
 
 extern int yyparse(void);
 
@@ -39,39 +41,131 @@ char s[2];
 struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменной
 
 %}
-
-"+"     printf("Операция: %s\n", yytext);
-"."     printf("Операция: %s\n", yytext);
-"-"	    printf("Операция: %s\n", yytext);	
-"*"	    printf("Операция: %s\n", yytext);
-"/"	    printf("Операция: %s\n", yytext);
-"="	    printf("Операция: %s\n", yytext);
-"+="    printf("Операция: %s\n", yytext);
-"-="    printf("Операция: %s\n", yytext);
-"*="    printf("Операция: %s\n", yytext);
-"/="    printf("Операция: %s\n", yytext);
-">"     printf("Операция: %s\n", yytext);
-">="    printf("Операция: %s\n", yytext);
-"<"	    printf("Операция: %s\n", yytext);
-"<="    printf("Операция: %s\n", yytext); 
-"<=>"   printf("Операция: %s\n", yytext);
-"!="    printf("Операция: %s\n", yytext);
-"=="    printf("Операция: %s\n", yytext);
-"||"    printf("Операция: %s\n", yytext);
-"&&"    printf("Операция: %s\n", yytext);
-"["     printf("Операция: %s\n", yytext);
-"]"	    printf("Операция: %s\n", yytext);
-"("     printf("Операция: %s\n", yytext);
-")"     printf("Операция: %s\n", yytext);
-"{"	    printf("Операция: %s\n", yytext);
-"}"	    printf("Операция: %s\n", yytext);
-"!"     printf("Операция: %s\n", yytext);
-":"     printf("Операция: %s\n", yytext);
-","     printf("Операция: %s\n", yytext);
-"..."   printf("Операция: %s\n", yytext);
-".."    printf("Операция: %s\n", yytext);
-"%"     printf("Операция: %s\n", yytext);
-
+\n {
+	return NL;
+}
+	
+"+" {    
+	//printf("Операция: %s\n", yytext);
+	return '+';
+}
+"." {
+	//printf("Операция: %s\n", yytext);
+	return '.';
+}
+"-" {
+    //printf("Операция: %s\n", yytext);
+	return '-';
+}
+"*" {
+    //printf("Операция: %s\n", yytext);
+	return '*';
+}
+"/" {
+    //printf("Операция: %s\n", yytext);
+	return '/';
+}
+"=" {
+    //printf("Операция: %s\n", yytext);
+	return '=';
+}
+"+=" {
+    //printf("Операция: %s\n", yytext);
+	return ADDASSIGN;
+}
+"-=" {
+    //printf("Операция: %s\n", yytext);
+	return SUBASSIGN;
+}
+"*=" {
+    //printf("Операция: %s\n", yytext);
+	return MULASSIGN;
+}
+"/=" {
+    //printf("Операция: %s\n", yytext);
+	return DIVASSIGN;
+}
+">" {
+     //printf("Операция: %s\n", yytext);
+	 return '>';
+}
+">=" {
+    //printf("Операция: %s\n", yytext);
+	return MOREEQ;
+}
+"<" {
+    //printf("Операция: %s\n", yytext);
+	return '<';
+}
+"<=" {
+	//printf("Операция: %s\n", yytext);
+	return LESSEQ;
+}
+"<=>" {
+	//printf("Операция: %s\n", yytext);
+	return LESSMORE;
+}
+"!=" {
+	//printf("Операция: %s\n", yytext);
+	return NEQ;
+}
+"==" {
+	//printf("Операция: %s\n", yytext);
+	return EQ;
+}
+"||" {
+	//printf("Операция: %s\n", yytext);
+	return ORWORD;
+}
+"&&" {
+	//printf("Операция: %s\n", yytext);
+	return ANDWORD;
+}
+"[" {
+    //printf("Операция: %s\n", yytext);
+	return '[';
+}
+"]"	{
+    //printf("Операция: %s\n", yytext);
+	return ']';
+}
+"(" {
+    //printf("Операция: %s\n", yytext);
+	return '(';
+}
+")" {
+    //printf("Операция: %s\n", yytext);
+	return ')';
+}
+"{"	{
+    //printf("Операция: %s\n", yytext);
+	return '{';
+}
+"}"	{
+    //printf("Операция: %s\n", yytext);
+	return '}';
+}
+"!" {
+    //printf("Операция: %s\n", yytext);
+	return '!';
+}
+":" {
+    //printf("Операция: %s\n", yytext);
+	return ':';
+}
+"," {
+    //printf("Операция: %s\n", yytext);
+	return ',';
+}
+"..." {
+	//printf("Операция: %s\n", yytext);
+	return THREEPOINT;
+}
+".." {
+	//printf("Операция: %s\n", yytext);
+	return TWOPOINT;
+}
+ 
 [+-]?[1-9]{DIGIT}* {
 	//printf("Целочисленная константа: %s \n", yytext);
 	yylval.int_const  = atoi(yytext);
@@ -82,21 +176,21 @@ struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменн
 	sscanf(yytext, "%g", &_float);
 	//printf("Дробная константа: %g \n", _float);
 	yylval.float_const  = _float;
-	return FLOAT;}
+	return FLOAT;
 }
 
 (0x[0-9a-f]+)|(0X[0-9A-F]+) {
 	sscanf(yytext, "%x", &_int);
 	//printf("Шестнадцатеричная константа: %d \n", _int);
 	yylval.int_const = _int;
-	return INT;}
+	return INT;
 }
 
 0[0-7]* {
 	sscanf(yytext, "%o", &_int);
 	//printf("Восьмеричная константа: %d \n", _int);
 	yylval.int_const = _int;
-	return INT;}
+	return INT;
 }
 
 0b[0-1]+ {
@@ -115,29 +209,95 @@ struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменн
 	return INT;
 }
 
-nil         printf("Ключевое слово: %s\n", yytext);
-def         printf("Ключевое слово: %s\n", yytext);
-self        printf("Ключевое слово: %s\n", yytext);
-not	        printf("Ключевое слово: %s\n", yytext);
-super       printf("Ключевое слово: %s\n", yytext);
-while       printf("Ключевое слово: %s\n", yytext);
-until       printf("Ключевое слово: %s\n", yytext);
-for	        printf("Ключевое слово: %s\n", yytext);
-then        printf("Ключевое слово: %s\n", yytext);
-do          printf("Ключевое слово: %s\n", yytext);
-if          printf("Ключевое слово: %s\n", yytext);
-else        printf("Ключевое слово: %s\n", yytext);
-elsif       printf("Ключевое слово: %s\n", yytext);
-in          printf("Ключевое слово: %s\n", yytext);
-array       printf("Ключевое слово: %s\n", yytext);
-end	        printf("Ключевое слово: %s\n", yytext);
-return      printf("Ключевое слово: %s\n", yytext);
-public      printf("Ключевое слово: %s\n", yytext);
-private     printf("Ключевое слово: %s\n", yytext);
-or          printf("Ключевое слово: %s\n", yytext);
-and         printf("Ключевое слово: %s\n", yytext);
-protected   printf("Ключевое слово: %s\n", yytext);
-break       printf("Ключевое слово : %s\n", yytext);
+nil {
+    //printf("Ключевое слово: %s\n", yytext);
+	return NIL;
+}
+def {
+    printf("Ключевое слово: %s\n", yytext);
+	return DEF;
+}
+self {
+    //printf("Ключевое слово: %s\n", yytext);
+	return SELF;
+}
+not	{
+    //printf("Ключевое слово: %s\n", yytext);
+	return NOT;
+}
+super {
+    printf("Ключевое слово: %s\n", yytext);
+	return SUPER;
+}
+while {
+    //printf("Ключевое слово: %s\n", yytext);
+	return WHILE;
+}
+until {
+    //printf("Ключевое слово: %s\n", yytext);
+	return UNTIL;
+}
+for	{
+    //printf("Ключевое слово: %s\n", yytext);
+	return FOR;
+}
+then {
+    //printf("Ключевое слово: %s\n", yytext);
+	return THEN;
+}
+do {
+    //printf("Ключевое слово: %s\n", yytext);
+	return DO;
+}
+if {
+    //printf("Ключевое слово: %s\n", yytext);
+	return IF;
+}
+else {
+    //printf("Ключевое слово: %s\n", yytext);
+	return ELSE;
+}
+elsif {
+    //printf("Ключевое слово: %s\n", yytext);
+	return ELIF;
+}
+in {
+    //printf("Ключевое слово: %s\n", yytext);
+	return IN;
+}
+
+end	{
+    //printf("Ключевое слово: %s\n", yytext);
+	return END;
+}
+return {
+    //printf("Ключевое слово: %s\n", yytext);
+	return RETURN;
+}
+public  {
+    //printf("Ключевое слово: %s\n", yytext);
+	return PUBLIC;
+}
+private {
+    //printf("Ключевое слово: %s\n", yytext);
+	return PRIVATE;
+}
+or {
+    //printf("Ключевое слово: %s\n", yytext);
+	return ORWORD;
+}
+and {
+    //printf("Ключевое слово: %s\n", yytext);
+	return ANDWORD;
+}
+protected {
+    //printf("Ключевое слово: %s\n", yytext);
+	return PROTECTED;
+}
+break {
+    //printf("Ключевое слово: %s\n", yytext);
+	return BREAK;
+}
 
 false {
 	//printf("Ключевое слово: %s\n", yytext);
@@ -150,21 +310,14 @@ true {
 	return BOOL;
 }
 
-print	printf("Метод для работы с консолью: %s\n", yytext);
-gets    printf("Метод для работы с консолью: %s\n", yytext);
-puts    printf("Метод для работы с консолью: %s\n", yytext);
-p       printf("Метод для работы с консолью: %s\n", yytext);
-printf  printf("Метод для работы с консолью: %s\n", yytext);
-putc    printf("Метод для работы с консолью: %s\n", yytext);
-
 {ID} {
 	//strcpy(text, yytext);
 	//printf("Константа: %s\n", text);
 	tempVar = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
-	tempVar->name = (char*)malloc(strlen(yytext));
-	strcpy(tempVar->name, yytext);		// записываем имя переменной
+	tempVar->name_var = (char*)malloc(strlen(yytext));
+	strcpy(tempVar->name_var, yytext);		// записываем имя переменной
 	tempVar->type = CONSTANT;			// записываем тип доступа
-	yylval.Var = tempVar;
+	yylval.var = tempVar;
 	return CONST;
 }
 
@@ -172,10 +325,10 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	//strcpy(text, yytext);
 	//printf("Идентификатор: %s\n", text);
 	tempVar = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
-	tempVar->name = (char*)malloc(strlen(yytext));
-	strcpy(tempVar->name, yytext);		// записываем имя переменной
+	tempVar->name_var = (char*)malloc(strlen(yytext));
+	strcpy(tempVar->name_var, yytext);		// записываем имя переменной
 	tempVar->type = LOCALVAR;			// записываем тип доступа
-	yylval.Var = tempVar;
+	yylval.var = tempVar;
 	return ID;
 }
 
@@ -183,10 +336,10 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	//strcpy(text, &yytext[1]);
 	//printf("Глобальная переменная: %s\n", text);
 	tempVar = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
-	tempVar->name = (char*)malloc(strlen(yytext));
-	strcpy(tempVar->name, yytext);		// записываем имя переменной
+	tempVar->name_var = (char*)malloc(strlen(yytext));
+	strcpy(tempVar->name_var, yytext);		// записываем имя переменной
 	tempVar->type = GLOBALVAR;			// записываем тип доступа
-	yylval.Var = tempVar;
+	yylval.var = tempVar;
 	return ID;
 }
 
@@ -194,10 +347,10 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	//strcpy(text, &yytext[1]);
 	//printf("Переменная объекта: %s\n", text);
 	tempVar = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
-	tempVar->name = (char*)malloc(strlen(yytext));
-	strcpy(tempVar->name, yytext);		// записываем имя переменной
+	tempVar->name_var = (char*)malloc(strlen(yytext));
+	strcpy(tempVar->name_var, yytext);		// записываем имя переменной
 	tempVar->type = OBJECTVAR;			// записываем тип доступа
-	yylval.Var = tempVar;
+	yylval.var = tempVar;
 	return ID;
 }
 
@@ -205,24 +358,17 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	//strcpy(text, &yytext[2]);
 	//printf("Переменная класса: %s\n", text);
 	tempVar = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
-	tempVar->name = (char*)malloc(strlen(yytext));
-	strcpy(tempVar->name, yytext);		// записываем имя переменной
+	tempVar->name_var = (char*)malloc(strlen(yytext));
+	strcpy(tempVar->name_var, yytext);		// записываем имя переменной
 	tempVar->type = CLASSVAR;			// записываем тип доступа
-	yylval.Var = tempVar;
+	yylval.var = tempVar;
 	return ID;
 }
 
-"=begin" BEGIN(MANY_COMMENTS); 
+"=begin" BEGIN(MANY_COMMENTS);
+
 <MANY_COMMENTS>[^=]{1,} {
 	strcat(comment, yytext);
-}
-
-<MANY_COMMENTS>"="+"end" {
-	strcat(comment,yytext);
-	comment[strlen(comment)-4] = 0;
-	printf("Многострочный комментарий: %s\n",comment);
-	comment[0] = 0;
-	BEGIN(INITIAL);
 }
 
 <MANY_COMMENTS>"="+[^e][.\n]* {
@@ -237,12 +383,25 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
     strcat(comment, yytext);
 }
 
-"#" BEGIN(ONE_COMMENT);
-<ONE_COMMENT>.* {
-	strcat(comment, yytext); 
-	printf("Однострочный комментарий: %s",comment);
+<MANY_COMMENTS>"="+"end" {
+	strcat(comment,yytext);
+	comment[strlen(comment)-4] = 0;
+	//printf("Многострочный комментарий: %s\n",comment);
+	strcpy(yylval.string_const, comment);
 	comment[0] = 0;
 	BEGIN(INITIAL);
+	return STRING;
+}
+
+"#" BEGIN(ONE_COMMENT);
+
+<ONE_COMMENT>.* {
+	strcat(comment, yytext); 
+	//printf("Однострочный комментарий: %s",comment);
+	strcpy(yylval.string_const, comment);
+	comment[0] = 0;
+	BEGIN(INITIAL);
+	return STRING;
 }
 
 "'"	{
@@ -262,7 +421,7 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 }
 
 <SIMPLE_STRING>"'" {
-	printf("Строковая константа: %s\n", strings);
+	//printf("Строковая константа: %s\n", strings);
 	strcpy(yylval.string_const,strings);	// копируем возвращаемое значение
 	strings[0] = 0;
 	BEGIN(INITIAL); 
@@ -318,11 +477,14 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 	strcat(strings, yytext);
 }
 <DIF_STRING>"\"" {
-	printf("Строковая константа: %s\n", strings);
+	//printf("Строковая константа: %s\n", strings);
 	strcpy(yylval.string_const, strings);	// копируем возвращаемое значение
 	strings[0] = 0;
 	BEGIN(INITIAL);
 	return STRING;
+}
+"::" {	
+	return DOUBLECOLON;
 }
 
 %%
@@ -330,7 +492,7 @@ putc    printf("Метод для работы с консолью: %s\n", yytext);
 int main(int argc, char* argv[]) {
 	setlocale(LC_CTYPE, ".1251");
 	yyin = fopen("test.txt", "r");
-	yylex();
+	yyparse();
 	fclose(yyin);
 	system("pause");
     return 0;
