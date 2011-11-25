@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "grammatic_struct.h"
+#inclide "grammatic_func.h"
 extern int yylex(void);
 
 struct Programm *prg;
@@ -56,15 +57,14 @@ struct Programm *prg;
 %token DO
 %token IF
 %token ELSE
-%token ELSIF
 %token IN
 %token BREAK
 %token END		
 %token RETURN
 %token UNTIL
 
-%token<Var> CONST	
-%token<Var> ID		
+%token<var> CONST	
+%token<var> ID		
 %token NL
 
 %token PUBLIC
@@ -148,20 +148,10 @@ class_member_list: class_member 			{$$=create_stmt_list($1)}
 		| class_member_list class_member	{$$=add_to_stmt_list($1,$2)}	
 		 ;
 		
-if_stmt: IF expr THEN method_members_ne END 									{$$=create_if_stmt($2, $4, NULL, NULL)}
-		| IF expr THEN method_members_ne ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6, NULL)}
-		| IF expr THEN method_members_ne elsif_stmt END							{$$=create_if_stmt($2, $4, $5, NULL)}
-		| IF expr THEN method_members_ne elsif_stmt ELSE method_members_ne END	{$$=create_if_stmt($2, $4, $5, $7)}
-		| IF expr NL method_members_ne END 										{$$=create_if_stmt($2, $4, NULL, NULL)}
-		| IF expr NL method_members_ne ELSE method_members_ne END 				{$$=create_if_stmt($2, $4, $6, NULL)}
-		| IF expr NL method_members_ne elsif_stmt END							{$$=create_if_stmt($2, $4, $5, NULL)}
-		| IF expr NL method_members_ne elsif_stmt ELSE method_members_ne END	{$$=create_if_stmt($2, $4, $5, $7)}
-		;
-		
-elsif_stmt: ELSIF expr THEN method_members_ne									{$$=create_elsif_stmt($2, $4, NULL)}
-		| elsif_stmt ELSIF expr THEN method_members_ne							{$$=add_to_elsif_stmt($1, $3, $5)}
-		| ELSIF expr NL method_members_ne										{$$=create_elsif_stmt($2, $4, NULL)}
-		| elsif_stmt ELSIF expr NL method_members_ne							{$$=add_to_elsif_stmt($1, $3, $5)}
+if_stmt: IF expr THEN method_members_ne END 									{$$=create_if_stmt($2, $4, NULL)}
+		| IF expr THEN method_members_ne ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6)}
+		| IF expr NL method_members_ne END 										{$$=create_if_stmt($2, $4, NULL)}
+		| IF expr NL method_members_ne ELSE method_members_ne END 				{$$=create_if_stmt($2, $4, $6)}
 		;
 		
 for_stmt: FOR expr IN expr DO method_members_ne END  {$$=create_for_stmt($2,$4, $6)}		
@@ -176,12 +166,12 @@ until_stmt: UNTIL expr DO method_members_ne END 	{$$=create_until_stmt($2,$4)}
 		| UNTIL expr NL method_members_ne END 		{$$=create_until_stmt($2,$4)}
 		;
 
-expr_list: expr_list ',' expr	{$$=add_to_expr_list($1,$3)}
-		| expr					{$$=create_expr_list($1)}
+expr_list: expr_list ',' expr	{$$=add_to_expr_list($1,$3);}
+		| expr					{$$=create_expr_list($1);}
 		;
 
-def_stmt: DEF ID NL method_members END	{$$create_def_stmt($2,NULL,$4)}			 
-		| DEF ID '('id_listE')' NL method_members END {$$ = create_def_stmt($2,$4,$7)}	
+def_stmt: DEF ID NL method_members END	{$$ = create_def_stmt($2,NULL,$4);}			 
+		| DEF ID '('id_listE')' NL method_members END {$$ = create_def_stmt($2,$4,$7);}	
 		;
 		
 class_stmt: CLASS CONST NL class_member_list END 			{$$ = create_class_stmt($2, NULL, $4)}			

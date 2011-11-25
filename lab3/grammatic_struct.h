@@ -37,7 +37,7 @@ enum Expr_type {
 	Assign,			// присвавивание 
 	AddAssign,		// +=
 	SubAssign,		// -= 
-	MultiAssign,	// *= 
+	MulAssign,	// *= 
 	DivAssign,		// /= 
 	More,			// > 
 	Less,			// < 
