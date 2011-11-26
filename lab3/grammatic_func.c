@@ -11,11 +11,12 @@ struct Program *create_program(struct Statements_list *lst)
 	program->stmts = lst;
 	return program;
 }
+
 struct Statement *create_if_stmt(struct Expression *expr, struct Statements_list *stmt_first,
 									struct Statements_list *stmt_second)
 {
 	struct Statement* if_stmt = (struct Statement* )malloc(sizeof(struct Statement));
-	struct Statement* else_stmt;
+	struct Statement* else_stmt = NULL;
 	if_stmt = clean_struct_statement(if_stmt);
 	if_stmt->type = If;
 	if_stmt->expr = expr;
@@ -28,8 +29,7 @@ struct Statement *create_if_stmt(struct Expression *expr, struct Statements_list
 		else_stmt->block = stmt_second;
 		if_stmt->next = else_stmt;
 	}
-	else
-		if_stmt->next = NULL;
+	if_stmt->next = else_stmt;
 	return if_stmt;
 }
 struct Statement* clean_struct_statement(struct Statement* stmt)
@@ -45,4 +45,73 @@ struct Statement* clean_struct_statement(struct Statement* stmt)
 	stmt->name_parent_class = NULL;
 	stmt->next = NULL;
 	return stmt;
+
+}
+struct Statements_list *create_stmt_list(struct Statement *stm)
+{
+	struct Statements_list* stm_list = (struct Statements_list* )malloc(sizeof(Statements_list));
+	stm_list->stmt = NULL;
+	stm_list->next = NULL;
+
+	if(stm!=NULL)
+	{
+		stm_list->next = stm;
+		stm_list->stmt = stm;
+		return stm_list;
+	}
+	return NULL;
+}
+struct Statements_list *add_stmt_list(struct Statements_list *stm_list,struct Statement *stm)
+{
+	struct Statement *if_once,*else_once;
+	if(stm_list!=NULL)
+	{
+		if(stm!=NULL)
+		{
+			if(stm->type = If)
+			{
+				else_once = stm->next;
+				if_once = stm;
+				stm_list->next->next = if_once;
+				stm_list->next = if_once;
+				if(else_once!=NULL)
+				{
+					stm_list->next->next = else_once;
+					stm_list->next = else_once;
+				}
+			}
+			else
+			{
+				stm_list->next->next = stm;
+				stm_list->next = stm;
+			}
+			return stm_list;
+		}
+		else
+			return stm_list;
+	}
+	else
+		create_stmt_list(stm);
+}
+struct Statement* create_stmt(struct Expression* expr)
+{
+	struct Statement* stm = (struct Statement* )malloc(sizeof(Statement));
+	stm = clean_struct_statement(stm);
+
+	stm->type = Expr;
+	stm->expr = expr;
+	return stm;
+}
+struct Statement* create_for_stmt(struct Expression* id,struct Expression* expr,struct Statements_list* stm_list)
+{
+	struct Statement* stm_for = NULL;
+	if(id->type = Id)
+	{
+		stm_for = (struct Statement*)malloc(sizeof(Statement));
+		stm_for = clean_struct_statement(stm_for);
+		stm_for->type = For;
+		stm_for->id = id;
+		stm_for->block = stm_list;
+	}
+	return stm_for;
 }
