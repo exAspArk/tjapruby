@@ -144,5 +144,4 @@ struct Statement* clean_struct_statement(struct Statement* stmt)
 	stmt->name_parent_class = NULL;
 	stmt->next = NULL;
 	return stmt;
-
 }
