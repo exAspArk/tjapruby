@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <malloc.h>
 #include "grammatic_struct.h"
-#inclide "grammatic_func.h"
+#include "grammatic_func.h"
 extern int yylex(void);
 
-struct Programm *prg;
+struct Program *prg;
 
 %}
 %union {
@@ -19,9 +19,9 @@ struct Programm *prg;
 	struct Statement *stm;
 	struct Program *prg;
 	struct Name_and_type_var *var;
-	struct StatementsList *stm_l;
-	struct ExpressionsList *exp_l;
-	struct ExpressionsList * id_l;
+	struct Statements_list *stm_l;
+	struct Expressions_list *exp_l;
+	struct Expressions_list * id_l;
 }
 
 %type <prg>program
@@ -207,10 +207,10 @@ expr: CONST													{$$ = create_expr(Const)}
 	| expr LESSMORE expr									{$$ = create_two_expr(LessMore,$1,$3);}
 	| expr ANDWORD expr 									{$$ = create_two_expr(AndWord,$1,$3)}
 	| expr ORWORD expr										{$$ = create_two_expr(OrWord,$1,$3)}
-	| NOTWORD expr %prec NOTWORD							{$$ = create_unar_op_expr(NotWord, $2);}
+	| NOTWORD expr %prec NOTWORD							{$$ = create_one_expr(NotWord, $2);}
 	| expr OR expr											{$$ = create_two_expr(Or,$1,$3);}
 	| expr AND expr											{$$ = create_two_expr(And,$1,$3);}
-	| NOT expr %prec NOT   									{$$ = create_unar_op_expr(Not, $2);}	
+	| NOT expr %prec NOT   									{$$ = create_one_expr(Not, $2);}	
 	| expr DOUBLECOLON expr									{$$ = create_two_expr(Doublecolon,$1,$3);}
 	| expr ADDASSIGN expr									{$$ = create_two_expr(AddAssign,$1,$3);}		
 	| expr SUBASSIGN expr									{$$ = create_two_expr(SubAssign,$1,$3);}
@@ -229,10 +229,10 @@ expr: CONST													{$$ = create_expr(Const)}
 	| SUPER '(' ')'											{$$ = create_super_expr(NULL);}
 	| SUPER '(' expr_list ')'								{$$ = create_super_expr($3);}
 	| init_array_expr										{$$=$1;}
-	| expr '[' expr ']'										{$$ = CreateCallArrayExpr($1,$3);}
+	| expr '[' expr ']'										{$$ = create_call_array_expr($1,$3);}
 	;
 	
-	init_array_expr: '[' expr_list ']'                      {$$ = CreateArray($2);}
+	init_array_expr: '[' expr_list ']'                      {$$ = create_array($2);}
 	;
 %%
 

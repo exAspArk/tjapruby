@@ -1,4 +1,5 @@
-
+#ifndef GRAMMATIC_STRUCT_H
+#define GRAMMATIC_STRUCT_H
 enum Access_rule {
 	Public,
 	Protected,
@@ -57,7 +58,7 @@ enum Expr_type {
 	Self,			// self 
 	Nil,			// nil 
 	Doublecolon,	// :: 
-
+	Super
 };
 
 enum Stmt_type {
@@ -128,3 +129,4 @@ struct Program {
 	struct Statements_list * stmts;
 };
 
+#endif
