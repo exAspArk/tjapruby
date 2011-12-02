@@ -4,6 +4,7 @@
 #include <malloc.h>
 #include "grammatic_struct.h"
 #include "grammatic_func.h"
+#define YYERROR_VERBOSE 
 extern int yylex(void);
 
 struct Program *prg;
