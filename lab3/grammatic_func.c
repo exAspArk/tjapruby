@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "grammatic_struct.h"
 #include "grammatic_func.h"
-#include "grammatic.tab.c"
+#include "grammatic_tab.h"
 #include <malloc.h>
 extern int yylex(void);
-extern YYSTYPE yylval;
+
 // создание нового дерева
 struct Program *create_program(struct Statements_list *lst)
 {

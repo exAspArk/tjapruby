@@ -8,6 +8,7 @@
 #include "grammatic_tab.h"
 
 extern int yyparse(void);
+void yyerror(char *err);
 
 %}
 
@@ -214,7 +215,7 @@ nil {
 	return NIL;
 }
 def {
-    printf("Ключевое слово: %s\n", yytext);
+    //printf("Ключевое слово: %s\n", yytext);
 	return DEF;
 }
 self {
@@ -257,15 +258,10 @@ else {
     //printf("Ключевое слово: %s\n", yytext);
 	return ELSE;
 }
-elsif {
-    //printf("Ключевое слово: %s\n", yytext);
-	return ELIF;
-}
 in {
     //printf("Ключевое слово: %s\n", yytext);
 	return IN;
 }
-
 end	{
     //printf("Ключевое слово: %s\n", yytext);
 	return END;
@@ -297,6 +293,9 @@ protected {
 break {
     //printf("Ключевое слово: %s\n", yytext);
 	return BREAK;
+}
+class {
+    return CLASS;
 }
 
 false {
@@ -488,6 +487,10 @@ true {
 }
 
 %%
+
+void yyerror(char *err) {
+   printf("Error: %s\n", err);
+}
 
 int main(int argc, char* argv[]) {
 	setlocale(LC_CTYPE, ".1251");
