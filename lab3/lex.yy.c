@@ -261,11 +261,15 @@ static void yy_flex_free YY_PROTO(( void * ));
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
 
+#define YY_USES_REJECT
+
 #define yywrap() 1
 #define YY_SKIP_YYWRAP
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
+extern int yylineno;
+int yylineno = 1;
 extern char *yytext;
 #define yytext_ptr yytext
 
@@ -286,34 +290,69 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 
 #define YY_NUM_RULES 95
 #define YY_END_OF_BUFFER 96
-static yyconst short int yy_accept[233] =
+static yyconst short int yy_acclist[284] =
     {   0,
-        0,    0,   73,   73,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,   96,   95,    1,   27,   79,   72,
-       95,   95,   74,   23,   24,    5,    2,   29,    4,    3,
-        6,   33,   32,   28,   14,    7,   12,   95,   61,   21,
-       22,   62,   62,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   62,   62,   62,   62,   62,   25,   95,   26,
-       73,   67,   95,   75,   78,   95,   80,   93,   80,   95,
-       17,   63,   63,   20,   10,    0,   33,   32,    8,    9,
-       31,   33,   11,   33,    0,    0,    0,    0,   32,   94,
-       15,   18,    0,   13,    0,   64,   64,   61,   62,   62,
+       73,   73,   96,   95,    1,   95,   27,   95,   79,   95,
+       72,   95,   95,   95,   74,   95,   23,   95,   24,   95,
+        5,   95,    2,   95,   29,   95,    4,   95,    3,   95,
+        6,   95,   33,   35,   95,   32,   33,   95,   28,   95,
+       14,   95,    7,   95,   12,   95,   95,   61,   95,   21,
+       95,   22,   95,   62,   95,   62,   95,   62,   95,   62,
+       95,   62,   95,   62,   95,   62,   95,   62,   95,   62,
+       95,   62,   95,   62,   95,   62,   95,   62,   95,   62,
+       95,   62,   95,   62,   95,   25,   95,   95,   26,   95,
+       73,   95,   67,   95,   95,   75,   95,   78,   95,   95,
 
-       62,   62,   62,   46,   62,   62,   62,   62,   47,   49,
-       62,   62,   54,   62,   62,   62,   62,   62,   62,   62,
-       62,   62,   19,   73,   67,   68,   68,    0,   75,   76,
-       77,   80,   80,   84,   85,   81,   81,   92,   91,   90,
-       89,   83,   88,   86,   87,   63,   63,   30,    0,   33,
-       34,   36,   34,   16,    0,   65,   65,   64,   64,   55,
-       62,   62,   38,   62,   50,   62,   44,   37,   40,   62,
+       80,   95,   93,   95,   80,   95,   95,   17,   63,   63,
+       20,   10,   33,   32,   33,    8,    9,   31,   33,   11,
+       33,   35,   32,   33,   94,   15,   18,   13,   64,   64,
+       61,   62,   62,   62,   62,   62,   46,   62,   62,   62,
+       62,   62,   47,   62,   49,   62,   62,   62,   54,   62,
+       62,   62,   62,   62,   62,   62,   62,   62,   62,   19,
+       73,   67,   68,   68,   75,   76,   77,   80,   80,   84,
+       85,   81,   81,   92,   91,   90,   89,   83,   88,   86,
+       87,   63,   63,   30,   33,   34,   36,   34,   16,   65,
+       65,   64,   64,   55,   62,   62,   62,   38,   62,   62,
+
+       50,   62,   62,   44,   62,   37,   62,   40,   62,   62,
        62,   62,   62,   62,   62,   62,   62,   62,   62,   68,
-       68,   69,    0,   80,   81,    0,    0,   65,   65,   62,
-       62,   48,   62,   62,   62,   62,   62,   39,   62,   45,
+       68,   69,   80,   82,   81,   65,   65,   62,   62,   48,
+       62,   62,   62,   62,   62,   62,   39,   62,   62,   45,
+       62,   60,   62,   62,   62,   69,   70,   71,   80,   82,
+       81,   82,   57,   62,   58,   62,   59,   62,   62,   62,
+       62,   62,   41,   62,   43,   62,   42,   62,   70,   82,
+       66,   62,   62,   52,   62,   51,   62,   53,   62,   62,
+       62,   56,   62
+    } ;
 
-       60,   62,   62,   69,   70,   71,   80,   81,   82,    0,
-       57,   58,   59,   62,   62,   62,   62,   41,   43,   42,
-       70,   82,   66,   62,   62,   52,   51,   53,   62,   62,
-       56,    0
+static yyconst short int yy_accept[234] =
+    {   0,
+        1,    1,    1,    2,    3,    3,    3,    3,    3,    3,
+        3,    3,    3,    3,    3,    4,    5,    7,    9,   11,
+       13,   14,   15,   17,   19,   21,   23,   25,   27,   29,
+       31,   33,   36,   39,   41,   43,   45,   47,   48,   50,
+       52,   54,   56,   58,   60,   62,   64,   66,   68,   70,
+       72,   74,   76,   78,   80,   82,   84,   86,   88,   89,
+       91,   93,   95,   96,   98,  100,  101,  103,  105,  107,
+      108,  109,  110,  111,  112,  113,  113,  114,  116,  117,
+      118,  119,  120,  121,  123,  123,  123,  123,  123,  125,
+      126,  127,  128,  128,  129,  129,  130,  131,  132,  133,
+
+      134,  135,  136,  137,  139,  140,  141,  142,  143,  145,
+      147,  148,  149,  151,  152,  153,  154,  155,  156,  157,
+      158,  159,  160,  161,  162,  163,  164,  165,  165,  166,
+      167,  168,  169,  170,  171,  172,  173,  174,  175,  176,
+      177,  178,  179,  180,  181,  182,  183,  184,  185,  185,
+      186,  187,  188,  189,  190,  190,  191,  192,  193,  194,
+      196,  197,  198,  200,  201,  203,  204,  206,  208,  210,
+      211,  212,  213,  214,  215,  216,  217,  218,  219,  220,
+      221,  222,  223,  223,  225,  226,  226,  226,  227,  228,
+      229,  230,  232,  233,  234,  235,  236,  237,  239,  240,
+
+      242,  244,  245,  246,  247,  248,  249,  251,  252,  253,
+      253,  255,  257,  259,  260,  261,  262,  263,  265,  267,
+      269,  270,  271,  272,  273,  274,  276,  278,  280,  281,
+      282,  284,  284
     } ;
 
 static yyconst int yy_ec[256] =
@@ -550,19 +589,22 @@ static yyconst short int yy_chk[549] =
       232,  232,  232,  232,  232,  232,  232,  232
     } ;
 
-static yy_state_type yy_last_accepting_state;
-static char *yy_last_accepting_cpos;
-
-/* The intent behind this definition is that it'll catch
- * any uses of REJECT which flex missed.
- */
-#define REJECT reject_used_but_not_detected
+static yy_state_type yy_state_buf[YY_BUF_SIZE + 2], *yy_state_ptr;
+static char *yy_full_match;
+static int yy_lp;
+#define REJECT \
+{ \
+*yy_cp = yy_hold_char; /* undo effects of setting up yytext */ \
+yy_cp = yy_full_match; /* restore poss. backed-over text */ \
+++yy_lp; \
+goto find_rule; \
+}
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 char *yytext;
-#line 1 "lexic.flex"
+#line 1 "lab3\\lexic.flex"
 #define INITIAL 0
-#line 2 "lexic.flex"
+#line 2 "lab3\\lexic.flex"
 
 #include <stdio.h>
 #include <string.h>
@@ -571,6 +613,8 @@ char *yytext;
 #include "grammatic_struct.h"
 #include "grammatic_tab.h"
 
+extern char* yytext;
+extern int yylineno;
 extern int yyparse(void);
 void yyerror(char *err);
 
@@ -587,7 +631,7 @@ void yyerror(char *err);
 
 #define METHOD_NAME 6
 
-#line 591 "lex.yy.c"
+#line 635 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -734,7 +778,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 29 "lexic.flex"
+#line 31 "lab3\\lexic.flex"
 
 
 
@@ -751,7 +795,7 @@ char s[2];
 struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменной
 
 
-#line 755 "lex.yy.c"
+#line 799 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -790,15 +834,12 @@ struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменн
 		yy_bp = yy_cp;
 
 		yy_current_state = yy_start;
+		yy_state_ptr = yy_state_buf;
+		*yy_state_ptr++ = yy_current_state;
 yy_match:
 		do
 			{
 			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
-			if ( yy_accept[yy_current_state] )
-				{
-				yy_last_accepting_state = yy_current_state;
-				yy_last_accepting_cpos = yy_cp;
-				}
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
@@ -806,44 +847,55 @@ yy_match:
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+			*yy_state_ptr++ = yy_current_state;
 			++yy_cp;
 			}
 		while ( yy_base[yy_current_state] != 491 );
 
 yy_find_action:
-		yy_act = yy_accept[yy_current_state];
-		if ( yy_act == 0 )
-			{ /* have to back up */
-			yy_cp = yy_last_accepting_cpos;
-			yy_current_state = yy_last_accepting_state;
-			yy_act = yy_accept[yy_current_state];
+		yy_current_state = *--yy_state_ptr;
+		yy_lp = yy_accept[yy_current_state];
+find_rule: /* we branch to this label when backing up */
+		for ( ; ; ) /* until we find what rule we matched */
+			{
+			if ( yy_lp && yy_lp < yy_accept[yy_current_state + 1] )
+				{
+				yy_act = yy_acclist[yy_lp];
+					{
+					yy_full_match = yy_cp;
+					break;
+					}
+				}
+			--yy_cp;
+			yy_current_state = *--yy_state_ptr;
+			yy_lp = yy_accept[yy_current_state];
 			}
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER )
+			{
+			int yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					++yylineno;
+			}
 
 do_action:	/* This label is used only to access EOF actions. */
 
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
-			case 0: /* must back up */
-			/* undo the effects of YY_DO_BEFORE_ACTION */
-			*yy_cp = yy_hold_char;
-			yy_cp = yy_last_accepting_cpos;
-			yy_current_state = yy_last_accepting_state;
-			goto yy_find_action;
-
 case 1:
 YY_RULE_SETUP
-#line 45 "lexic.flex"
+#line 47 "lab3\\lexic.flex"
 {
 	return NL;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 49 "lexic.flex"
+#line 51 "lab3\\lexic.flex"
 {    
 	//printf("Операция: %s\n", yytext);
 	return '+';
@@ -851,7 +903,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 53 "lexic.flex"
+#line 55 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return '.';
@@ -859,7 +911,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 57 "lexic.flex"
+#line 59 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '-';
@@ -867,7 +919,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 61 "lexic.flex"
+#line 63 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '*';
@@ -875,7 +927,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 65 "lexic.flex"
+#line 67 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '/';
@@ -883,7 +935,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 69 "lexic.flex"
+#line 71 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '=';
@@ -891,7 +943,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 73 "lexic.flex"
+#line 75 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return ADDASSIGN;
@@ -899,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 77 "lexic.flex"
+#line 79 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return SUBASSIGN;
@@ -907,7 +959,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 81 "lexic.flex"
+#line 83 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return MULASSIGN;
@@ -915,7 +967,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 85 "lexic.flex"
+#line 87 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return DIVASSIGN;
@@ -923,7 +975,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 89 "lexic.flex"
+#line 91 "lab3\\lexic.flex"
 {
      //printf("Операция: %s\n", yytext);
 	 return '>';
@@ -931,7 +983,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 93 "lexic.flex"
+#line 95 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return MOREEQ;
@@ -939,7 +991,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 97 "lexic.flex"
+#line 99 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '<';
@@ -947,7 +999,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 101 "lexic.flex"
+#line 103 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return LESSEQ;
@@ -955,7 +1007,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 105 "lexic.flex"
+#line 107 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return LESSMORE;
@@ -963,7 +1015,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 109 "lexic.flex"
+#line 111 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return NEQ;
@@ -971,7 +1023,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 113 "lexic.flex"
+#line 115 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return EQ;
@@ -979,7 +1031,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 117 "lexic.flex"
+#line 119 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return ORWORD;
@@ -987,7 +1039,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 121 "lexic.flex"
+#line 123 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return ANDWORD;
@@ -995,7 +1047,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 125 "lexic.flex"
+#line 127 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '[';
@@ -1003,7 +1055,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 129 "lexic.flex"
+#line 131 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return ']';
@@ -1011,7 +1063,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 133 "lexic.flex"
+#line 135 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '(';
@@ -1019,7 +1071,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 137 "lexic.flex"
+#line 139 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return ')';
@@ -1027,7 +1079,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 141 "lexic.flex"
+#line 143 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '{';
@@ -1035,7 +1087,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 145 "lexic.flex"
+#line 147 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '}';
@@ -1043,7 +1095,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 149 "lexic.flex"
+#line 151 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return '!';
@@ -1051,7 +1103,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 153 "lexic.flex"
+#line 155 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return ':';
@@ -1059,7 +1111,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 157 "lexic.flex"
+#line 159 "lab3\\lexic.flex"
 {
     //printf("Операция: %s\n", yytext);
 	return ',';
@@ -1067,7 +1119,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 161 "lexic.flex"
+#line 163 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return THREEPOINT;
@@ -1075,7 +1127,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 165 "lexic.flex"
+#line 167 "lab3\\lexic.flex"
 {
 	//printf("Операция: %s\n", yytext);
 	return TWOPOINT;
@@ -1083,7 +1135,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 170 "lexic.flex"
+#line 172 "lab3\\lexic.flex"
 {
 	//printf("Целочисленная константа: %s \n", yytext);
 	yylval.int_const  = atoi(yytext);
@@ -1092,7 +1144,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 176 "lexic.flex"
+#line 178 "lab3\\lexic.flex"
 {
 	sscanf(yytext, "%g", &_float);
 	//printf("Дробная константа: %g \n", _float);
@@ -1102,7 +1154,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 183 "lexic.flex"
+#line 185 "lab3\\lexic.flex"
 {
 	sscanf(yytext, "%x", &_int);
 	//printf("Шестнадцатеричная константа: %d \n", _int);
@@ -1112,7 +1164,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 190 "lexic.flex"
+#line 192 "lab3\\lexic.flex"
 {
 	sscanf(yytext, "%o", &_int);
 	//printf("Восьмеричная константа: %d \n", _int);
@@ -1122,7 +1174,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 197 "lexic.flex"
+#line 199 "lab3\\lexic.flex"
 {
 	tmp[0] = 0;
 	_int= 0;
@@ -1141,7 +1193,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 213 "lexic.flex"
+#line 215 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return NIL;
@@ -1149,7 +1201,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 217 "lexic.flex"
+#line 219 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return DEF;
@@ -1157,7 +1209,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 221 "lexic.flex"
+#line 223 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return SELF;
@@ -1165,7 +1217,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 225 "lexic.flex"
+#line 227 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return NOT;
@@ -1173,7 +1225,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 229 "lexic.flex"
+#line 231 "lab3\\lexic.flex"
 {
     printf("Ключевое слово: %s\n", yytext);
 	return SUPER;
@@ -1181,7 +1233,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 233 "lexic.flex"
+#line 235 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return WHILE;
@@ -1189,7 +1241,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 237 "lexic.flex"
+#line 239 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return UNTIL;
@@ -1197,7 +1249,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 241 "lexic.flex"
+#line 243 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return FOR;
@@ -1205,7 +1257,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 245 "lexic.flex"
+#line 247 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return THEN;
@@ -1213,7 +1265,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 249 "lexic.flex"
+#line 251 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return DO;
@@ -1221,7 +1273,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 253 "lexic.flex"
+#line 255 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return IF;
@@ -1229,7 +1281,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 257 "lexic.flex"
+#line 259 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return ELSE;
@@ -1237,7 +1289,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 261 "lexic.flex"
+#line 263 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return IN;
@@ -1245,7 +1297,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 265 "lexic.flex"
+#line 267 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return END;
@@ -1253,7 +1305,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 269 "lexic.flex"
+#line 271 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return RETURN;
@@ -1261,7 +1313,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 273 "lexic.flex"
+#line 275 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return PUBLIC;
@@ -1269,7 +1321,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 277 "lexic.flex"
+#line 279 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return PRIVATE;
@@ -1277,7 +1329,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 281 "lexic.flex"
+#line 283 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return ORWORD;
@@ -1285,7 +1337,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 285 "lexic.flex"
+#line 287 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return ANDWORD;
@@ -1293,7 +1345,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 289 "lexic.flex"
+#line 291 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return PROTECTED;
@@ -1301,7 +1353,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 293 "lexic.flex"
+#line 295 "lab3\\lexic.flex"
 {
     //printf("Ключевое слово: %s\n", yytext);
 	return BREAK;
@@ -1309,14 +1361,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 297 "lexic.flex"
+#line 299 "lab3\\lexic.flex"
 {
     return CLASS;
 }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 301 "lexic.flex"
+#line 303 "lab3\\lexic.flex"
 {
 	//printf("Ключевое слово: %s\n", yytext);
 	yylval.bool_const = 0;
@@ -1325,7 +1377,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 306 "lexic.flex"
+#line 308 "lab3\\lexic.flex"
 {
 	//printf("Ключевое слово: %s\n", yytext);
 	yylval.bool_const = 1;
@@ -1334,7 +1386,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 312 "lexic.flex"
+#line 314 "lab3\\lexic.flex"
 {
 	//strcpy(text, yytext);
 	//printf("Константа: %s\n", text);
@@ -1348,7 +1400,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 323 "lexic.flex"
+#line 325 "lab3\\lexic.flex"
 {
 	//strcpy(text, yytext);
 	//printf("Идентификатор: %s\n", text);
@@ -1362,7 +1414,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 334 "lexic.flex"
+#line 336 "lab3\\lexic.flex"
 {
 	//strcpy(text, &yytext[1]);
 	//printf("Глобальная переменная: %s\n", text);
@@ -1376,7 +1428,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 345 "lexic.flex"
+#line 347 "lab3\\lexic.flex"
 {
 	//strcpy(text, &yytext[1]);
 	//printf("Переменная объекта: %s\n", text);
@@ -1390,7 +1442,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 356 "lexic.flex"
+#line 358 "lab3\\lexic.flex"
 {
 	//strcpy(text, &yytext[2]);
 	//printf("Переменная класса: %s\n", text);
@@ -1404,40 +1456,40 @@ YY_RULE_SETUP
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 367 "lexic.flex"
+#line 369 "lab3\\lexic.flex"
 BEGIN(MANY_COMMENTS);
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 369 "lexic.flex"
+#line 371 "lab3\\lexic.flex"
 {
 	strcat(comment, yytext);
 }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 373 "lexic.flex"
+#line 375 "lab3\\lexic.flex"
 {
     strcat(comment, yytext);
 }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 377 "lexic.flex"
+#line 379 "lab3\\lexic.flex"
 {
     strcat(comment, yytext);
 }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 381 "lexic.flex"
+#line 383 "lab3\\lexic.flex"
 {
     strcat(comment, yytext);
 }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 385 "lexic.flex"
+#line 387 "lab3\\lexic.flex"
 {
 	strcat(comment,yytext);
 	comment[strlen(comment)-4] = 0;
@@ -1450,12 +1502,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 395 "lexic.flex"
+#line 397 "lab3\\lexic.flex"
 BEGIN(ONE_COMMENT);
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 397 "lexic.flex"
+#line 399 "lab3\\lexic.flex"
 {
 	strcat(comment, yytext); 
 	//printf("Однострочный комментарий: %s",comment);
@@ -1467,35 +1519,35 @@ YY_RULE_SETUP
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 406 "lexic.flex"
+#line 408 "lab3\\lexic.flex"
 {
 	BEGIN(SIMPLE_STRING);
 }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 410 "lexic.flex"
+#line 412 "lab3\\lexic.flex"
 {
     strcat(strings, yytext);
 }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 414 "lexic.flex"
+#line 416 "lab3\\lexic.flex"
 {
 	strcat(strings, "'");
 }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 418 "lexic.flex"
+#line 420 "lab3\\lexic.flex"
 {
     strcat(strings, "\\");
 }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 422 "lexic.flex"
+#line 424 "lab3\\lexic.flex"
 {
 	//printf("Строковая константа: %s\n", strings);
 	strcpy(yylval.string_const,strings);	// копируем возвращаемое значение
@@ -1506,21 +1558,21 @@ YY_RULE_SETUP
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 430 "lexic.flex"
+#line 432 "lab3\\lexic.flex"
 {
 	BEGIN(DIF_STRING); 
 }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 434 "lexic.flex"
+#line 436 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 438 "lexic.flex"
+#line 440 "lab3\\lexic.flex"
 {
     sscanf(yytext+1,"%o",s);
 	strcat(strings, s);
@@ -1528,7 +1580,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 443 "lexic.flex"
+#line 445 "lab3\\lexic.flex"
 {
     sscanf(yytext+1,"%x",s);
 	strcat(strings, s);
@@ -1536,77 +1588,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 448 "lexic.flex"
+#line 450 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 451 "lexic.flex"
+#line 453 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 454 "lexic.flex"
+#line 456 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 457 "lexic.flex"
+#line 459 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 460 "lexic.flex"
+#line 462 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 463 "lexic.flex"
+#line 465 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 466 "lexic.flex"
+#line 468 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 469 "lexic.flex"
+#line 471 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 472 "lexic.flex"
+#line 474 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 475 "lexic.flex"
+#line 477 "lab3\\lexic.flex"
 {
 	strcat(strings, yytext);
 }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 478 "lexic.flex"
+#line 480 "lab3\\lexic.flex"
 {
 	//printf("Строковая константа: %s\n", strings);
 	strcpy(yylval.string_const, strings);	// копируем возвращаемое значение
@@ -1617,25 +1669,25 @@ YY_RULE_SETUP
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 485 "lexic.flex"
+#line 487 "lab3\\lexic.flex"
 {	
 	return DOUBLECOLON;
 }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 489 "lexic.flex"
+#line 491 "lab3\\lexic.flex"
 ECHO;
 	YY_BREAK
-#line 1631 "lex.yy.c"
-case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(ONE_COMMENT):
-case YY_STATE_EOF(MANY_COMMENTS):
-case YY_STATE_EOF(SIMPLE_STRING):
-case YY_STATE_EOF(DIF_STRING):
-case YY_STATE_EOF(METHOD):
-case YY_STATE_EOF(METHOD_NAME):
-	yyterminate();
+#line 1683 "lex.yy.c"
+			case YY_STATE_EOF(INITIAL):
+			case YY_STATE_EOF(ONE_COMMENT):
+			case YY_STATE_EOF(MANY_COMMENTS):
+			case YY_STATE_EOF(SIMPLE_STRING):
+			case YY_STATE_EOF(DIF_STRING):
+			case YY_STATE_EOF(METHOD):
+			case YY_STATE_EOF(METHOD_NAME):
+				yyterminate();
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1910,15 +1962,12 @@ static yy_state_type yy_get_previous_state()
 	register char *yy_cp;
 
 	yy_current_state = yy_start;
+	yy_state_ptr = yy_state_buf;
+	*yy_state_ptr++ = yy_current_state;
 
 	for ( yy_cp = yytext_ptr + YY_MORE_ADJ; yy_cp < yy_c_buf_p; ++yy_cp )
 		{
 		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
-		if ( yy_accept[yy_current_state] )
-			{
-			yy_last_accepting_state = yy_current_state;
-			yy_last_accepting_cpos = yy_cp;
-			}
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
@@ -1926,6 +1975,7 @@ static yy_state_type yy_get_previous_state()
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+		*yy_state_ptr++ = yy_current_state;
 		}
 
 	return yy_current_state;
@@ -1946,14 +1996,8 @@ yy_state_type yy_current_state;
 #endif
 	{
 	register int yy_is_jam;
-	register char *yy_cp = yy_c_buf_p;
 
 	register YY_CHAR yy_c = 1;
-	if ( yy_accept[yy_current_state] )
-		{
-		yy_last_accepting_state = yy_current_state;
-		yy_last_accepting_cpos = yy_cp;
-		}
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
@@ -1961,6 +2005,7 @@ yy_state_type yy_current_state;
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
+	*yy_state_ptr++ = yy_current_state;
 	yy_is_jam = (yy_current_state == 232);
 
 	return yy_is_jam ? 0 : yy_current_state;
@@ -2003,6 +2048,8 @@ register char *yy_bp;
 
 	*--yy_cp = (char) c;
 
+	if ( c == '\n' )
+		--yylineno;
 
 	yytext_ptr = yy_bp;
 	yy_hold_char = *yy_cp;
@@ -2076,6 +2123,8 @@ static int input()
 	*yy_c_buf_p = '\0';	/* preserve yytext */
 	yy_hold_char = *++yy_c_buf_p;
 
+	if ( c == '\n' )
+		++yylineno;
 
 	return c;
 	}
@@ -2493,11 +2542,11 @@ int main()
 	return 0;
 	}
 #endif
-#line 489 "lexic.flex"
+#line 491 "lab3\\lexic.flex"
 
 
 void yyerror(char *err) {
-   printf("Error: %s\n", err);
+   printf("%s on line %d - %s\n", err, yylineno, yytext);
 }
 
 int main(int argc, char* argv[]) {

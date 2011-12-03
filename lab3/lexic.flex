@@ -7,11 +7,13 @@
 #include "grammatic_struct.h"
 #include "grammatic_tab.h"
 
+extern char* yytext;
+extern int yylineno;
 extern int yyparse(void);
 void yyerror(char *err);
 
 %}
-
+%option yylineno
 %option noyywrap
 %option never-interactive
 
@@ -489,7 +491,7 @@ true {
 %%
 
 void yyerror(char *err) {
-   printf("Error: %s\n", err);
+   printf("%s on line %d - %s\n", err, yylineno, yytext);
 }
 
 int main(int argc, char* argv[]) {
