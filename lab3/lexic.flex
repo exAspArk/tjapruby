@@ -6,12 +6,13 @@
 #include <locale.h>
 #include "grammatic_struct.h"
 #include "grammatic_tab.h"
+#include "treePrint.h"
 
 extern char* yytext;
 extern int yylineno;
 extern int yyparse(void);
 void yyerror(char *err);
-
+FILE* tree;
 %}
 %option yylineno
 %option noyywrap
@@ -498,6 +499,9 @@ int main(int argc, char* argv[]) {
 	setlocale(LC_CTYPE, ".1251");
 	yyin = fopen("test.txt", "r");
 	yyparse();
+	tree=freopen("codetree.xml","w",stdout);
+	tree_print();
+	fclose(tree);
 	fclose(yyin);
 	system("pause");
     return 0;

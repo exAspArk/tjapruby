@@ -55,7 +55,7 @@ struct Statements_list *add_to_stmt_list(struct Statements_list *stm_list,struct
 	{
 		if(stm!=NULL)
 		{
-			if(stm->type = If)
+			if(stm->type == If)
 			{
 				else_once = stm->next;
 				if_once = stm;
