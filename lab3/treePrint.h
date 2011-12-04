@@ -1,12 +1,11 @@
 #include <stdio.h>
-//#include "XML.h"
 
 struct attrs
 {
 	char *name;
 	char *value;
 };
-//«десь надо выводить дерево, построенное после 
+
 void printTag(char *tag,char *str)
 {
 	fprintf(stdout,"\n<%s>",tag);
@@ -263,7 +262,7 @@ void stmt_print(struct Statement *stmt)
 			
 				onlyOpenTag("DefineMethod");
 				printTag("Method",stmt->expr->var->name_var);
-				id_list_print(stmt->id);
+				id_list_print(stmt->id_list);
 				if(stmt->block)
 					lst_print(stmt->block);
 				onlyCloseTag("DefineMethod");
