@@ -1,6 +1,40 @@
 #include <stdio.h>
-#include "XML.h"
+//#include "XML.h"
 
+struct attrs
+{
+	char *name;
+	char *value;
+};
+//«десь надо выводить дерево, построенное после 
+void printTag(char *tag,char *str)
+{
+	fprintf(stdout,"\n<%s>",tag);
+	fprintf(stdout,"\'%s\'",str);
+	fprintf(stdout,"</%s>",tag);
+}
+void attrOpenTag(char *tag,struct attrs *curAttr,int count)
+{
+	int ind=0;
+	printf("\n<%s",tag);
+	while(ind<count)
+	{
+		fprintf(stdout," %s=\"%s\"",curAttr[ind].name,curAttr[ind].value);
+		ind++;
+	}
+	fprintf(stdout,">");
+}
+// “олько открывающий тег
+void onlyOpenTag(char *openTag)
+{
+	fprintf(stdout,"\n<%s>", openTag);
+}
+
+// “олько закрывающий тег
+void onlyCloseTag(char *closeTag)
+{
+	fprintf(stdout,"\n</%s>",closeTag);
+}
 int tree_print();
 void lst_print(struct Statements_list* stmts);
 void stmt_print(struct Statement *stmt);
@@ -50,13 +84,18 @@ void lst_print(struct Statements_list* stmts)
 // выводим stmt
 void stmt_print(struct Statement *stmt)
 {
+	char buffer[255]={0};
+	char buffer1[255]={0};
+	struct attrs attribute[10];
 	if (stmt!=NULL)
 	{
-		onlyOpenTag("Stmt");
+		//onlyOpenTag("Stmt");
 		switch(stmt->type)
 		{
 		case Expr:
+			onlyOpenTag("Expr_Stmt");
 			expr_print(stmt->expr);
+			onlyCloseTag("Expr_Stmt");
 			break;
 		case While:
 			onlyOpenTag("While");
@@ -86,14 +125,21 @@ void stmt_print(struct Statement *stmt)
 			break;
 
 		case Class:
-			onlyOpenTag("Class");
-			name_and_type_print(stmt->name_class);
+			//onlyOpenTag("Class");
+			attribute[0].name="className";
+			attribute[0].value=stmt->name_class;
+			//name_and_type_print(stmt->name_class);
 			if(stmt->name_parent_class != NULL)
 			{
-				onlyOpenTag("ParentClass");
+				attribute[1].name="parentClassName";
+				attribute[1].value=stmt->name_parent_class;
+				/*onlyOpenTag("ParentClass");
 				name_and_type_print(stmt->name_parent_class);
-				onlyCloseTag("ParentClass");
+				onlyCloseTag("ParentClass");*/
+				attrOpenTag("Class",attribute,2);
 			}
+			else
+				attrOpenTag("Class",attribute,1);
 			lst_print(stmt->block);
 			onlyCloseTag("Class");
 			break;
@@ -282,28 +328,42 @@ void id_list_print(struct Expressions_list *id_l)
 // выводим expr
 void expr_print(struct Expression *expr)
 {
+	char buffer[255]={0};
+	struct attrs attribute[10];
 	char buff[255]={0};
 	if (expr)
 	{
-		onlyOpenTag("Expression");
+		//onlyOpenTag("Expression");
 		switch(expr->type)
 		{
 		case Int:
-			printTag("Int", _itoa(expr->int_const, buff, 10));
+			attribute[0].name="Value";
+			attribute[0].value=_itoa(expr->int_const, buffer, 10);
+			attrOpenTag("Int",attribute,1);
+			onlyCloseTag("Int");
 			break;
 		case Float:
-			floatToChar(expr->float_const, buff);
-			printTag("Float",buff);
+			sprintf(buffer,"%g",expr->float_const);
+			attribute[0].name="Value";
+			attribute[0].value=buffer;
+			attrOpenTag("Float",attribute,1);
+			onlyCloseTag("Float");
 			break;
 		case Bool:
+			attribute[0].name="Value";
+			attribute[0].value=buffer;
 			if(expr->bool_const == 0)
 			{
-				printTag("Bool","false");
+				attribute[0].value="0";
+				//printTag("Bool","false");
 			}
 			else if(expr->bool_const == 1)
 			{
-				printTag("Bool","true");
+				attribute[0].value="1";
+				//printTag("Bool","true");
 			}
+			attrOpenTag("Bool",attribute,1);
+			onlyCloseTag("Bool");
 			break;
 		case Array:
 			onlyOpenTag("Array");
@@ -311,7 +371,10 @@ void expr_print(struct Expression *expr)
 			onlyCloseTag("Array");
 			break;
 		case String:
-			printTag("String", expr->string_const);
+			attribute[0].name="Value";
+			attribute[0].value=expr->string_const;
+			attrOpenTag("StringConst",attribute,1);
+			onlyCloseTag("StringConst");
 			break;
 		case Id:
 			switch(expr->var->type)
