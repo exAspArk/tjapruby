@@ -389,6 +389,7 @@ true {
 	strcat(comment,yytext);
 	comment[strlen(comment)-4] = 0;
 	//printf("Многострочный комментарий: %s\n",comment);
+    yylval.string_const = (char*)malloc(sizeof(char)*strlen(comment));
 	strcpy(yylval.string_const, comment);
 	comment[0] = 0;
 	BEGIN(INITIAL);
@@ -400,6 +401,7 @@ true {
 <ONE_COMMENT>.* {
 	strcat(comment, yytext); 
 	//printf("Однострочный комментарий: %s",comment);
+    yylval.string_const = (char*)malloc(sizeof(char)*strlen(comment));
 	strcpy(yylval.string_const, comment);
 	comment[0] = 0;
 	BEGIN(INITIAL);
@@ -424,6 +426,7 @@ true {
 
 <SIMPLE_STRING>"'" {
 	//printf("Строковая константа: %s\n", strings);
+    yylval.string_const = (char*)malloc(sizeof(char)*strlen(strings));
 	strcpy(yylval.string_const,strings);	// копируем возвращаемое значение
 	strings[0] = 0;
 	BEGIN(INITIAL); 
@@ -480,6 +483,7 @@ true {
 }
 <DIF_STRING>"\"" {
 	//printf("Строковая константа: %s\n", strings);
+    yylval.string_const = (char*)malloc(sizeof(char)*strlen(strings));
 	strcpy(yylval.string_const, strings);	// копируем возвращаемое значение
 	strings[0] = 0;
 	BEGIN(INITIAL);

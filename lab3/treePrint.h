@@ -288,7 +288,7 @@ void stmt_print(struct Statement *stmt)
 			onlyCloseTag("Until");
 			break;
 		}
-		onlyCloseTag("Stmt");
+		//onlyCloseTag("Stmt");
 	}
 }
 // выводим  expr_list
@@ -606,7 +606,7 @@ void expr_print(struct Expression *expr)
 			onlyCloseTag("Super");
 			break;
 		}
-		onlyCloseTag("Expression");
+		//onlyCloseTag("Expression");
 	}
 }
 

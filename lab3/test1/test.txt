@@ -1,0 +1,18 @@
+class A 
+ def meth
+     a = "Stroka"
+ end
+end
+
+class B 
+ private : g
+ def initialize(bred)
+     g = bred
+ end
+ private def plus(elem)
+     g = elem + g
+ end
+ public def minus
+     g += 1
+ end 
+end

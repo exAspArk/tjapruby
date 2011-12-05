@@ -1,0 +1,20 @@
+class Search
+	def initialize(a)
+		if a == "Stroka"
+			a = "No"
+		end
+	end
+	def loop
+		i = 10
+		for i in array
+			i -= 1
+		end
+	end
+	def complite
+		str = ""
+		a = "a"
+		while i > 3
+			str = a + 1
+		end
+	end
+end
