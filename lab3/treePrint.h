@@ -131,7 +131,7 @@ void stmt_print(struct Statement *stmt)
 			if(stmt->name_parent_class != NULL)
 			{
 				attribute[1].name="parentClassName";
-				attribute[1].value=stmt->name_parent_class;
+				attribute[1].value=stmt->name_parent_class->name_var;
 				/*onlyOpenTag("ParentClass");
 				name_and_type_print(stmt->name_parent_class);
 				onlyCloseTag("ParentClass");*/
@@ -262,7 +262,7 @@ void stmt_print(struct Statement *stmt)
 			
 				onlyOpenTag("DefineMethod");
 				printTag("Method",stmt->expr->var->name_var);
-				id_list_print(stmt->id);
+				id_list_print(stmt->id_list);
 				if(stmt->block)
 					lst_print(stmt->block);
 				onlyCloseTag("DefineMethod");

@@ -4,7 +4,6 @@
 #include "grammatic_tab.h"
 #include <malloc.h>
 extern int yylex(void);
-
 // создание нового дерева
 struct Program *create_program(struct Statements_list *lst)
 {
@@ -262,6 +261,7 @@ struct Statement *create_class_stmt(struct Name_and_type_var * name, struct Name
 struct Expression * create_expr(enum Expr_type exprType)
 {
 	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	struct Name_and_type_var *ver = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
 	result = clean_struct_expression(result);
 
 	result->type = exprType;
@@ -277,7 +277,9 @@ struct Expression * create_expr(enum Expr_type exprType)
 			result->string_const = yylval.string_const;
 			break;
 		case Id:
-			result->var = yylval.var;
+			ver->name_var = yylval.var->name_var;
+			ver->type = yylval.var->type;
+			result->var = ver;
 			break;
 		case Const:
 			result->var = yylval.var;
