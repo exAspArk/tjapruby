@@ -126,7 +126,7 @@ void stmt_print(struct Statement *stmt)
 		case Class:
 			//onlyOpenTag("Class");
 			attribute[0].name="className";
-			attribute[0].value=stmt->name_class;
+			attribute[0].value=stmt->name_class->name_var;
 			//name_and_type_print(stmt->name_class);
 			if(stmt->name_parent_class != NULL)
 			{
@@ -262,7 +262,7 @@ void stmt_print(struct Statement *stmt)
 			
 				onlyOpenTag("DefineMethod");
 				printTag("Method",stmt->expr->var->name_var);
-				id_list_print(stmt->id_list);
+				id_list_print(stmt->id);
 				if(stmt->block)
 					lst_print(stmt->block);
 				onlyCloseTag("DefineMethod");
