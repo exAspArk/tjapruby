@@ -95,7 +95,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 13 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 13 "grammatic.y"
 
 	long int_const;
 	float float_const;

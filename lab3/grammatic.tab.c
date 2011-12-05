@@ -68,7 +68,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 1 "grammatic.y"
 
 
 #include <stdio.h>
@@ -166,7 +166,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 13 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 13 "grammatic.y"
 
 	long int_const;
 	float float_const;
@@ -1760,728 +1760,728 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 97 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 97 "grammatic.y"
     {(yyval.prg) = prg = create_program((yyvsp[(1) - (1)].stm_l));}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 100 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 100 "grammatic.y"
     {(yyval.stm_l)=(yyvsp[(1) - (1)].stm_l);}
     break;
 
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 101 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 101 "grammatic.y"
     {(yyval.stm_l)=NULL;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 104 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 104 "grammatic.y"
     {(yyval.stm_l) = create_stmt_list((yyvsp[(1) - (1)].stm));}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 105 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 105 "grammatic.y"
     {(yyval.stm_l) = add_to_stmt_list((yyvsp[(1) - (2)].stm_l),(yyvsp[(2) - (2)].stm));}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 108 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 108 "grammatic.y"
     {(yyval.stm) = create_stmt((yyvsp[(1) - (2)].exp));}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 109 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 109 "grammatic.y"
     {(yyval.stm)=NULL;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 110 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 110 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 111 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 111 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 112 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 112 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 113 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 113 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 114 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 114 "grammatic.y"
     {(yyval.stm) = create_return_stmt((yyvsp[(2) - (3)].exp));}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 115 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 115 "grammatic.y"
     {(yyval.stm) = create_break_stmt();}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 116 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 116 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 117 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 117 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 119 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 119 "grammatic.y"
     {(yyval.stm) = create_stmt((yyvsp[(1) - (2)].exp));}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 120 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 120 "grammatic.y"
     {(yyval.stm)=NULL;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 121 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 121 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 122 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 122 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 123 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 123 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 124 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 124 "grammatic.y"
     {(yyval.stm)=(yyvsp[(1) - (2)].stm);}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 125 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 125 "grammatic.y"
     {(yyval.stm) = create_return_stmt((yyvsp[(2) - (3)].exp));}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 126 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 126 "grammatic.y"
     {(yyval.stm) = create_break_stmt();}
     break;
 
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 129 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 129 "grammatic.y"
     {(yyval.stm_l) = create_stmt_list((yyvsp[(1) - (1)].stm));}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 130 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 130 "grammatic.y"
     {(yyval.stm_l) = add_to_stmt_list((yyvsp[(1) - (2)].stm_l),(yyvsp[(2) - (2)].stm));}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 133 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 133 "grammatic.y"
     {(yyval.stm_l)=(yyvsp[(1) - (1)].stm_l);}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 134 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 134 "grammatic.y"
     {(yyval.stm_l)=NULL;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 137 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 137 "grammatic.y"
     {(yyval.stm)=NULL;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 138 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 138 "grammatic.y"
     {(yyval.stm) = create_access_rule(Public,(yyvsp[(1) - (2)].var),NULL);}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 139 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 139 "grammatic.y"
     {(yyval.stm) = create_access_rule(Public,NULL,(yyvsp[(1) - (2)].stm));}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 140 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 140 "grammatic.y"
     {(yyval.stm) = create_access_rule(Public,(yyvsp[(3) - (4)].var),NULL);}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 141 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 141 "grammatic.y"
     {(yyval.stm) = create_access_rule(Private,(yyvsp[(3) - (4)].var),NULL);}
     break;
 
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 142 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 142 "grammatic.y"
     {(yyval.stm) = create_access_rule(Protected,(yyvsp[(3) - (4)].var),NULL);}
     break;
 
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 143 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 143 "grammatic.y"
     {(yyval.stm) = create_access_rule(Public,NULL,(yyvsp[(2) - (3)].stm));}
     break;
 
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 144 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 144 "grammatic.y"
     {(yyval.stm) = create_access_rule(Private,NULL,(yyvsp[(2) - (3)].stm));}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 145 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 145 "grammatic.y"
     {(yyval.stm) = create_access_rule(Protected,NULL,(yyvsp[(2) - (3)].stm));}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 148 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 148 "grammatic.y"
     {(yyval.stm_l)=create_stmt_list((yyvsp[(1) - (1)].stm));}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 149 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 149 "grammatic.y"
     {(yyval.stm_l)=add_to_stmt_list((yyvsp[(1) - (2)].stm_l),(yyvsp[(2) - (2)].stm));}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 152 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 152 "grammatic.y"
     {(yyval.stm)=create_if_stmt((yyvsp[(2) - (5)].exp), (yyvsp[(4) - (5)].stm_l), NULL);}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 153 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 153 "grammatic.y"
     {(yyval.stm)=create_if_stmt((yyvsp[(2) - (7)].exp), (yyvsp[(4) - (7)].stm_l), (yyvsp[(6) - (7)].stm_l));}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 154 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 154 "grammatic.y"
     {(yyval.stm)=create_if_stmt((yyvsp[(2) - (5)].exp), (yyvsp[(4) - (5)].stm_l), NULL);}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 155 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 155 "grammatic.y"
     {(yyval.stm)=create_if_stmt((yyvsp[(2) - (7)].exp), (yyvsp[(4) - (7)].stm_l), (yyvsp[(6) - (7)].stm_l));}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 158 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 158 "grammatic.y"
     {(yyval.stm)=create_for_stmt((yyvsp[(2) - (7)].exp),(yyvsp[(4) - (7)].exp), (yyvsp[(6) - (7)].stm_l));}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 159 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 159 "grammatic.y"
     {(yyval.stm)=create_for_stmt((yyvsp[(2) - (7)].exp),(yyvsp[(4) - (7)].exp), (yyvsp[(6) - (7)].stm_l));}
     break;
 
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 162 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 162 "grammatic.y"
     {(yyval.stm)=create_while_stmt((yyvsp[(2) - (5)].exp),(yyvsp[(4) - (5)].stm_l));}
     break;
 
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 163 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 163 "grammatic.y"
     {(yyval.stm)=create_while_stmt((yyvsp[(2) - (5)].exp),(yyvsp[(4) - (5)].stm_l));}
     break;
 
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 166 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 166 "grammatic.y"
     {(yyval.stm)=create_until_stmt((yyvsp[(2) - (5)].exp),(yyvsp[(4) - (5)].stm_l));}
     break;
 
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 167 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 167 "grammatic.y"
     {(yyval.stm)=create_until_stmt((yyvsp[(2) - (5)].exp),(yyvsp[(4) - (5)].stm_l));}
     break;
 
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 170 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 170 "grammatic.y"
     {(yyval.exp_l)=add_to_expr_list((yyvsp[(1) - (3)].exp_l),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 171 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 171 "grammatic.y"
     {(yyval.exp_l)=create_expr_list((yyvsp[(1) - (1)].exp));;}
     break;
 
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 174 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 174 "grammatic.y"
     {(yyval.stm) = create_def_stmt((yyvsp[(2) - (5)].var),NULL,(yyvsp[(4) - (5)].stm_l));;}
     break;
 
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 175 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 175 "grammatic.y"
     {(yyval.stm) = create_def_stmt((yyvsp[(2) - (8)].var),(yyvsp[(4) - (8)].id_l),(yyvsp[(7) - (8)].stm_l));;}
     break;
 
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 178 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 178 "grammatic.y"
     {(yyval.stm) = create_class_stmt((yyvsp[(2) - (5)].var), NULL, (yyvsp[(4) - (5)].stm_l));}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 179 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 179 "grammatic.y"
     {(yyval.stm) = create_class_stmt((yyvsp[(2) - (7)].var), (yyvsp[(4) - (7)].var), (yyvsp[(6) - (7)].stm_l));}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 182 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 182 "grammatic.y"
     {(yyval.id_l)=(yyvsp[(1) - (1)].id_l);}
     break;
 
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 183 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 183 "grammatic.y"
     {(yyval.id_l)=NULL;}
     break;
 
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 185 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 185 "grammatic.y"
     {(yyval.id_l) = add_to_id_list((yyvsp[(1) - (3)].id_l),(yyvsp[(3) - (3)].var));}
     break;
 
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 186 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 186 "grammatic.y"
     {(yyval.id_l) = create_id_list((yyvsp[(1) - (1)].var));}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 189 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 189 "grammatic.y"
     {(yyval.exp) = create_expr(Const);}
     break;
 
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 190 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 190 "grammatic.y"
     {(yyval.exp) = create_expr(Id);}
     break;
 
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 191 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 191 "grammatic.y"
     {(yyval.exp) = create_expr(String);}
     break;
 
   case 63:
 
 /* Line 1455 of yacc.c  */
-#line 192 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 192 "grammatic.y"
     {(yyval.exp) = create_expr(Int);}
     break;
 
   case 64:
 
 /* Line 1455 of yacc.c  */
-#line 193 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 193 "grammatic.y"
     {(yyval.exp) = create_expr(Float);}
     break;
 
   case 65:
 
 /* Line 1455 of yacc.c  */
-#line 194 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 194 "grammatic.y"
     {(yyval.exp) = create_expr(Bool);}
     break;
 
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 195 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 195 "grammatic.y"
     {(yyval.exp) = create_expr(Nil);}
     break;
 
   case 67:
 
 /* Line 1455 of yacc.c  */
-#line 196 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 196 "grammatic.y"
     {(yyval.exp) = create_expr(Self);}
     break;
 
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 197 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 197 "grammatic.y"
     {(yyval.exp) = create_two_expr(Plus,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 69:
 
 /* Line 1455 of yacc.c  */
-#line 198 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 198 "grammatic.y"
     {(yyval.exp) = create_two_expr(Minus,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 70:
 
 /* Line 1455 of yacc.c  */
-#line 199 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 199 "grammatic.y"
     {(yyval.exp) = create_two_expr(Multiply,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 71:
 
 /* Line 1455 of yacc.c  */
-#line 200 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 200 "grammatic.y"
     {(yyval.exp) = create_two_expr(Division,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 72:
 
 /* Line 1455 of yacc.c  */
-#line 201 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 201 "grammatic.y"
     {(yyval.exp) = create_two_expr(Less,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 73:
 
 /* Line 1455 of yacc.c  */
-#line 202 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 202 "grammatic.y"
     {(yyval.exp) = create_two_expr(More,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 74:
 
 /* Line 1455 of yacc.c  */
-#line 203 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 203 "grammatic.y"
     {(yyval.exp) = create_two_expr(Assign,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 75:
 
 /* Line 1455 of yacc.c  */
-#line 204 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 204 "grammatic.y"
     {(yyval.exp) = create_two_expr(LessEq,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 76:
 
 /* Line 1455 of yacc.c  */
-#line 205 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 205 "grammatic.y"
     {(yyval.exp) = create_two_expr(MoreEq,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 77:
 
 /* Line 1455 of yacc.c  */
-#line 206 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 206 "grammatic.y"
     {(yyval.exp) = create_two_expr(Equivalent,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 78:
 
 /* Line 1455 of yacc.c  */
-#line 207 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 207 "grammatic.y"
     {(yyval.exp) = create_two_expr(NotEquivalent,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 79:
 
 /* Line 1455 of yacc.c  */
-#line 208 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 208 "grammatic.y"
     {(yyval.exp) = create_two_expr(LessMore,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 80:
 
 /* Line 1455 of yacc.c  */
-#line 209 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 209 "grammatic.y"
     {(yyval.exp) = create_two_expr(AndWord,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 81:
 
 /* Line 1455 of yacc.c  */
-#line 210 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 210 "grammatic.y"
     {(yyval.exp) = create_two_expr(OrWord,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));}
     break;
 
   case 82:
 
 /* Line 1455 of yacc.c  */
-#line 211 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 211 "grammatic.y"
     {(yyval.exp) = create_one_expr(NotWord, (yyvsp[(2) - (2)].exp));;}
     break;
 
   case 83:
 
 /* Line 1455 of yacc.c  */
-#line 212 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 212 "grammatic.y"
     {(yyval.exp) = create_two_expr(Or,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 84:
 
 /* Line 1455 of yacc.c  */
-#line 213 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 213 "grammatic.y"
     {(yyval.exp) = create_two_expr(And,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 85:
 
 /* Line 1455 of yacc.c  */
-#line 214 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 214 "grammatic.y"
     {(yyval.exp) = create_one_expr(Not, (yyvsp[(2) - (2)].exp));;}
     break;
 
   case 86:
 
 /* Line 1455 of yacc.c  */
-#line 215 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 215 "grammatic.y"
     {(yyval.exp) = create_two_expr(Doublecolon,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 87:
 
 /* Line 1455 of yacc.c  */
-#line 216 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 216 "grammatic.y"
     {(yyval.exp) = create_two_expr(AddAssign,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 88:
 
 /* Line 1455 of yacc.c  */
-#line 217 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 217 "grammatic.y"
     {(yyval.exp) = create_two_expr(SubAssign,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 89:
 
 /* Line 1455 of yacc.c  */
-#line 218 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 218 "grammatic.y"
     {(yyval.exp) = create_two_expr(MulAssign,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 90:
 
 /* Line 1455 of yacc.c  */
-#line 219 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 219 "grammatic.y"
     {(yyval.exp) = create_two_expr(DivAssign,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 91:
 
 /* Line 1455 of yacc.c  */
-#line 220 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 220 "grammatic.y"
     {(yyval.exp) = create_two_expr(TwoPoint,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 92:
 
 /* Line 1455 of yacc.c  */
-#line 221 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 221 "grammatic.y"
     {(yyval.exp) = create_two_expr(ThreePoint,(yyvsp[(1) - (3)].exp),(yyvsp[(3) - (3)].exp));;}
     break;
 
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 222 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 222 "grammatic.y"
     {(yyval.exp) = create_one_expr(Uminus, (yyvsp[(2) - (2)].exp));}
     break;
 
   case 94:
 
 /* Line 1455 of yacc.c  */
-#line 223 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 223 "grammatic.y"
     {(yyval.exp) = create_one_expr(Uplus, (yyvsp[(2) - (2)].exp));}
     break;
 
   case 95:
 
 /* Line 1455 of yacc.c  */
-#line 224 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 224 "grammatic.y"
     {(yyval.exp) = create_call_method((yyvsp[(1) - (3)].exp), (yyvsp[(3) - (3)].var), NULL);;}
     break;
 
   case 96:
 
 /* Line 1455 of yacc.c  */
-#line 225 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 225 "grammatic.y"
     {(yyval.exp) = create_call_method((yyvsp[(1) - (5)].exp), (yyvsp[(3) - (5)].var), NULL);;}
     break;
 
   case 97:
 
 /* Line 1455 of yacc.c  */
-#line 226 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 226 "grammatic.y"
     {(yyval.exp) = create_call_method((yyvsp[(1) - (6)].exp), (yyvsp[(3) - (6)].var), (yyvsp[(5) - (6)].exp_l));;}
     break;
 
   case 98:
 
 /* Line 1455 of yacc.c  */
-#line 227 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 227 "grammatic.y"
     {(yyval.exp) = create_call_method(NULL, (yyvsp[(1) - (3)].var), NULL);;}
     break;
 
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 228 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 228 "grammatic.y"
     {(yyval.exp) = create_call_method(NULL, (yyvsp[(1) - (4)].var), (yyvsp[(3) - (4)].exp_l));;}
     break;
 
   case 100:
 
 /* Line 1455 of yacc.c  */
-#line 229 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 229 "grammatic.y"
     {(yyval.exp) = create_super_expr(NULL);;}
     break;
 
   case 101:
 
 /* Line 1455 of yacc.c  */
-#line 230 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 230 "grammatic.y"
     {(yyval.exp) = create_super_expr(NULL);;}
     break;
 
   case 102:
 
 /* Line 1455 of yacc.c  */
-#line 231 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 231 "grammatic.y"
     {(yyval.exp) = create_super_expr((yyvsp[(3) - (4)].exp_l));;}
     break;
 
   case 103:
 
 /* Line 1455 of yacc.c  */
-#line 232 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 232 "grammatic.y"
     {(yyval.exp)=(yyvsp[(1) - (1)].exp);;}
     break;
 
   case 104:
 
 /* Line 1455 of yacc.c  */
-#line 233 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 233 "grammatic.y"
     {(yyval.exp) = create_call_array_expr((yyvsp[(1) - (4)].exp),(yyvsp[(3) - (4)].exp));;}
     break;
 
   case 105:
 
 /* Line 1455 of yacc.c  */
-#line 236 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 236 "grammatic.y"
     {(yyval.exp) = create_array((yyvsp[(2) - (3)].exp_l));;}
     break;
 
@@ -2700,7 +2700,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 238 "d:\\Programming\\Project\\tjapRuby\\lab3\\grammatic.y"
+#line 238 "grammatic.y"
 
 
 

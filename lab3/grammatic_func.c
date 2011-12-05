@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "grammatic_struct.h"
 #include "grammatic_func.h"
-#include "grammatic_tab.h"
+#include "grammatic.tab.h"
 #include <malloc.h>
 extern int yylex(void);
 // создание нового дерева

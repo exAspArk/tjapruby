@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include "grammatic_struct.h"
-#include "grammatic_tab.h"
+#include "grammatic.tab.h"
 #include "treePrint.h"
 
 extern char* yytext;
