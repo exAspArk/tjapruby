@@ -98,6 +98,7 @@ struct Statement* create_for_stmt(struct Expression* id,struct Expression* expr,
 		stm_for = clean_struct_statement(stm_for);
 		stm_for->type = For;
 		stm_for->id = id;
+		stm_for->expr  = expr;
 		stm_for->block = stm_list;
 	}
 	return stm_for;
