@@ -1,0 +1,87 @@
+
+<MainClass>
+<Stmt_List>
+<Class className="Math">
+<Stmt_List>
+<Public>
+<DefineMethod>
+<Method>'initialize'</Method>
+<Stmt_List>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'a'</Name>
+<Int Value="1">
+</Int>
+</Assign>
+</Expr_Stmt>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'b'</Name>
+<Float Value="0">
+</Float>
+</Assign>
+</Expr_Stmt>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'c'</Name>
+<CallMethod>
+<Type>'CONSTANT'</Type>
+<Name>'Array'</Name>
+<Method>'new'</Method>
+</CallMethod>
+</Assign>
+</Expr_Stmt>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'c'</Name>
+<Array>
+<Expr_List>
+<Int Value="1">
+</Int>
+<Int Value="2">
+</Int>
+<Int Value="3">
+</Int>
+</Expr_List>
+</Array>
+</Assign>
+</Expr_Stmt>
+<Expr_Stmt>
+<AddAndAssign>
+<CallArray>
+<Type>'LOCALVAR'</Type>
+<Name>'c'</Name>
+<Int Value="-2">
+</Int>
+</CallArray>
+<Multiply>
+<CallArray>
+<CallMethod>
+<CallMethod>
+<Method>'find'</Method>
+<Expr_List>
+<Type>'LOCALVAR'</Type>
+<Name>'b'</Name>
+</Expr_List>
+</CallMethod>
+<Method>'meth'</Method>
+</CallMethod>
+<Int Value="-1">
+</Int>
+</CallArray>
+<Type>'LOCALVAR'</Type>
+<Name>'b'</Name>
+</Multiply>
+</AddAndAssign>
+</Expr_Stmt>
+</Stmt_List>
+</DefineMethod>
+</Public>
+</Stmt_List>
+</Class>
+</Stmt_List>
+</MainClass>

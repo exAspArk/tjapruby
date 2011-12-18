@@ -1,0 +1,85 @@
+
+<MainClass>
+<Stmt_List>
+<Class className="Search">
+<Stmt_List>
+<Public>
+<DefineMethod>
+<Method>'loop'</Method>
+<Stmt_List>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Int Value="10">
+</Int>
+</Assign>
+</Expr_Stmt>
+<For>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Type>'LOCALVAR'</Type>
+<Name>'array'</Name>
+<Stmt_List>
+<Expr_Stmt>
+<SubAndAssign>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Int Value="1">
+</Int>
+</SubAndAssign>
+</Expr_Stmt>
+</Stmt_List>
+</For>
+</Stmt_List>
+</DefineMethod>
+</Public>
+<Public>
+<DefineMethod>
+<Method>'complite'</Method>
+<Stmt_List>
+<Expr_Stmt>
+<Assign>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Int Value="5">
+</Int>
+</Assign>
+</Expr_Stmt>
+<While>
+<More>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Int Value="3">
+</Int>
+</More>
+<Stmt_List>
+<If>
+<EQ>
+<Type>'LOCALVAR'</Type>
+<Name>'i'</Name>
+<Int Value="5">
+</Int>
+</EQ>
+<Block>
+<Stmt_List>
+<Expr_Stmt>
+<SubAndAssign>
+<Type>'LOCALVAR'</Type>
+<Name>'a'</Name>
+<Int Value="3">
+</Int>
+</SubAndAssign>
+</Expr_Stmt>
+</Stmt_List>
+</Block>
+</If>
+</Stmt_List>
+</While>
+</Stmt_List>
+</DefineMethod>
+</Public>
+</Stmt_List>
+</Class>
+</Stmt_List>
+</MainClass>
