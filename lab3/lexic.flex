@@ -170,7 +170,7 @@ struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменн
 	return TWOPOINT;
 }
  
-[+-]?[1-9]{DIGIT}* {
+[+-]?{DIGIT}* {
 	//printf("Целочисленная константа: %s \n", yytext);
 	yylval.int_const  = atoi(yytext);
 	return INT;
@@ -500,8 +500,18 @@ void yyerror(char *err) {
 }
 
 int main(int argc, char* argv[]) {
+    char str[100] = "";
 	setlocale(LC_CTYPE, ".1251");
-	yyin = fopen("test.txt", "r");
+    
+    yyin = fopen("test.rb", "r+");
+	fseek(yyin, -1, SEEK_END);
+    fscanf(yyin, "%s", str);
+    if(strcmp(str, "")) {
+        fprintf(yyin, "\n");
+    }
+    fclose(yyin);
+
+    yyin = fopen("test.rb", "r");
 	yyparse();
 	tree=freopen("codetree.xml","w",stdout);
 	tree_print();

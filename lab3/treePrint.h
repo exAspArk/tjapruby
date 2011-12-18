@@ -109,7 +109,6 @@ void stmt_print(struct Statement *stmt)
 			onlyOpenTag("Block");
 			lst_print(stmt->block);
 			onlyCloseTag("Block");
-			onlyCloseTag("If");
 			if(stmt->next != NULL)
 			{
 				if(stmt->next->type == Else)	// если  не равно NULL, значит там чтото есть
@@ -121,6 +120,7 @@ void stmt_print(struct Statement *stmt)
 					onlyCloseTag("Else");
 				}
 			}
+			onlyCloseTag("If");
 			break;
 
 		case Class:

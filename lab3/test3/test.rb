@@ -1,9 +1,4 @@
 class Search
-	def initialize(a)
-		if a == "Stroka"
-			a = "No"
-		end
-	end
 	def loop
 		i = 10
 		for i in array
@@ -11,10 +6,11 @@ class Search
 		end
 	end
 	def complite
-		str = ""
-		a = "a"
+		i = 5
 		while i > 3
-			str = a + 1
+			if i == 5
+				a -= 3
+			end
 		end
 	end
 end
