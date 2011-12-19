@@ -50,7 +50,6 @@ struct Program *prg;
 %token NIL
 %token SELF
 %token DEF
-%token BOOL
 %token SUPER
 %token WHILE
 %token FOR
@@ -63,6 +62,8 @@ struct Program *prg;
 %token END		
 %token RETURN
 %token UNTIL
+%token PRINT
+%token P
 
 %token<var> CONST	
 %token<var> ID		
@@ -75,6 +76,7 @@ struct Program *prg;
 %token <int_const>INT
 %token <float_const>FLOAT
 %token <string_const>STRING
+%token <bool_const>BOOL
 
 %left ANDWORD ORWORD
 %left NOTWORD
@@ -112,7 +114,6 @@ stmt: expr NL				{$$ = create_stmt($1)}
 	| while_stmt NL			{$$=$1}	
 	| until_stmt NL			{$$=$1}	
 	| RETURN expr NL		{$$ = create_return_stmt($2)}
-	| BREAK NL				{$$ = create_break_stmt()}
 	| class_stmt NL			{$$=$1}
 	| def_stmt NL			{$$=$1}							
 ;
@@ -155,8 +156,8 @@ if_stmt: IF expr THEN method_members_ne END 									{$$=create_if_stmt($2, $4, 
 		| IF expr NL method_members_ne ELSE method_members_ne END 				{$$=create_if_stmt($2, $4, $6)}
 		;
 		
-for_stmt: FOR expr IN expr DO method_members_ne END  {$$=create_for_stmt($2,$4, $6)}		
-		| FOR expr IN expr NL method_members_ne END  {$$=create_for_stmt($2,$4, $6)}
+for_stmt: FOR expr IN expr DO method_members_ne END {$$=create_for_stmt($2,$4, $6)}		
+		| FOR expr IN expr NL method_members_ne END {$$=create_for_stmt($2,$4, $6)}
 		;
 		
 while_stmt: WHILE expr DO method_members_ne END 	{$$=create_while_stmt($2,$4)}
@@ -167,12 +168,12 @@ until_stmt: UNTIL expr DO method_members_ne END 	{$$=create_until_stmt($2,$4)}
 		| UNTIL expr NL method_members_ne END 		{$$=create_until_stmt($2,$4)}
 		;
 
-expr_list: expr_list ',' expr	{$$=add_to_expr_list($1,$3);}
-		| expr					{$$=create_expr_list($1);}
+expr_list: expr_list ',' expr						{$$=add_to_expr_list($1,$3);}
+		| expr										{$$=create_expr_list($1);}
 		;
 
-def_stmt: DEF ID NL method_members END	{$$ = create_def_stmt($2,NULL,$4);}			 
-		| DEF ID '('id_listE')' NL method_members END {$$ = create_def_stmt($2,$4,$7);}	
+def_stmt: DEF ID NL method_members END						{$$ = create_def_stmt($2,NULL,$4);}			 
+		| DEF ID '('id_listE')' NL method_members END 		{$$ = create_def_stmt($2,$4,$7);}	
 		;
 		
 class_stmt: CLASS CONST NL class_member_list END 			{$$ = create_class_stmt($2, NULL, $4)}			
@@ -186,12 +187,12 @@ id_list: id_list ',' ID		{$$ = add_to_id_list($1,$3)}
 		| ID				{$$ = create_id_list($1)}									
 		;
 		
-expr: CONST													{$$ = create_expr(Const)}
-	| ID													{$$ = create_expr(Id)}
-	| STRING												{$$ = create_expr(String)}
-	| INT													{$$ = create_expr(Int)}
-	| FLOAT													{$$ = create_expr(Float)}
-	| BOOL													{$$ = create_expr(Bool)}
+expr: CONST													{$$ = create_expr_const($1)}
+	| ID													{$$ = create_expr_id($1)}
+	| STRING												{$$ = create_expr_string($1)}
+	| INT													{$$ = create_expr_int($1)}
+	| FLOAT													{$$ = create_expr_float($1)}
+	| BOOL													{$$ = create_expr_bool($1)}
 	| NIL													{$$ = create_expr(Nil)}
 	| SELF													{$$ = create_expr(Self)}
 	| expr '+' expr											{$$ = create_two_expr(Plus,$1,$3)}
@@ -223,7 +224,9 @@ expr: CONST													{$$ = create_expr(Const)}
 	| '+' expr %prec UPLUS									{$$ = create_one_expr(Uplus, $2)}
 	| expr '.' ID											{$$ = create_call_method($1, $3, NULL);}
 	| expr '.' ID '(' ')'									{$$ = create_call_method($1, $3, NULL);}
-	| expr '.' ID '(' expr_list ')'							{$$ = create_call_method($1, $3, $5);}			
+	| expr '.' ID '(' expr_list ')'							{$$ = create_call_method($1, $3, $5);}	
+	| PRINT '(' expr_list ')'								{$$ = create_print_stmt($3)}
+	| P '(' expr_list ')'									{$$ = create_p_stmt($3)}
 	| ID '(' ')'											{$$ = create_call_method(NULL, $1, NULL);}
 	| ID '(' expr_list ')'									{$$ = create_call_method(NULL, $1, $3);}
 	| SUPER													{$$ = create_super_expr(NULL);}
