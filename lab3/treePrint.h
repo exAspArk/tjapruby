@@ -12,6 +12,11 @@ void printTag(char *tag,char *str)
 	fprintf(stdout,"\'%s\'",str);
 	fprintf(stdout,"</%s>",tag);
 }
+void printEmptyTag(char *tag)
+{
+	fprintf(stdout,"\n<%s>",tag);
+	fprintf(stdout,"</%s>",tag);
+}
 void attrOpenTag(char *tag,struct attrs *curAttr,int count)
 {
 	int ind=0;
@@ -272,7 +277,7 @@ void stmt_print(struct Statement *stmt)
 
 		
 		case Break:
-			printTag("Break","");
+			printEmptyTag("Break");
 			break;
 
 		case Return:
@@ -599,6 +604,16 @@ void expr_print(struct Expression *expr)
 			printTag("Method",expr->right->var->name_var);
 			expr_list_print(expr->expr_List);
 			onlyCloseTag("CallMethod");
+			break;
+		case print:
+			onlyOpenTag("PrintMethod");
+			expr_list_print(expr->expr_List);
+			onlyCloseTag("PrintMethod");
+			break;
+		case p:
+			onlyOpenTag("PMethod");
+			expr_list_print(expr->expr_List);
+			onlyCloseTag("PMethod");
 			break;
 		case Super:
 			onlyOpenTag("Super");

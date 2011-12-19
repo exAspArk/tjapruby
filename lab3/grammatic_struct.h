@@ -58,7 +58,9 @@ enum Expr_type {
 	Self,			// self 
 	Nil,			// nil 
 	Doublecolon,	// :: 
-	Super
+	Super,
+	print,
+	p
 };
 
 enum Stmt_type {

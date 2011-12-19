@@ -258,37 +258,72 @@ struct Statement *create_class_stmt(struct Name_and_type_var * name, struct Name
 	return NULL;
 }
 
-// создание выражений из переменных
-struct Expression * create_expr(enum Expr_type exprType)
+struct Expression * create_expr_const(int var) 
 {
 	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
-	//struct Name_and_type_var *ver = (struct Name_and_type_var*)malloc(sizeof(struct Name_and_type_var));
+	result = clean_struct_expression(result);
+
+	result->type = Const;
+	result->var = var;
+	return result;
+}
+
+struct Expression * create_expr_id(int var) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	result = clean_struct_expression(result);
+
+	result->type = Id;
+	result->var = var;
+	return result;
+}
+
+struct Expression * create_expr_string(char * str) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	result = clean_struct_expression(result);
+
+	result->type = String;
+	strcpy(result->string_const, str);
+	return result;
+}
+
+struct Expression * create_expr_int(int var) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	result = clean_struct_expression(result);
+
+	result->type = Int;
+	result->int_const = var;
+	return result;
+}
+
+struct Expression * create_expr_float(float var) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	result = clean_struct_expression(result);
+
+	result->type = Float;
+	result->float_const = var;
+	return result;
+}
+
+struct Expression * create_expr_bool(int var) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	result = clean_struct_expression(result);
+
+	result->type = Bool;
+	result->bool_const = var;
+	return result;
+}
+
+struct Expression * create_expr(enum Expr_type exprType) 
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
 	result = clean_struct_expression(result);
 
 	result->type = exprType;
-	switch(exprType)
-	{
-		case Int:
-			result->int_const = yylval.int_const;
-			break;
-		case Float:
-			result->float_const= yylval.float_const;
-			break;
-		case String:
-			result->string_const = yylval.string_const;
-			break;
-		case Id:
-			//ver->name_var = yylval.var->name_var;
-			//ver->type = yylval.var->type;
-			result->var = yylval.var;
-			break;
-		case Const:
-			result->var = yylval.var;
-			break;
-		case Bool:
-			result->bool_const = yylval.bool_const;
-			break;
-	}
 	return result;
 }
 
@@ -394,6 +429,45 @@ struct Expression * create_call_method(struct Expression *obj,struct Name_and_ty
 		result->expr_List = expr_list;
 		return result;
 	}
+}
+
+// вызов print
+struct Expression * create_print_stmt(struct Expressions_list *expr_list)
+{
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	struct Expression *expr = (struct Expression *)malloc(sizeof(struct Expression));
+
+	result = clean_struct_expression(result);
+	expr = clean_struct_expression(expr);
+
+	result->type=print;
+	result->left=NULL;
+
+	expr->type = Id;
+	expr->var = "print";
+	result->right=expr;
+
+	result->expr_List = expr_list;
+	return result;
+}
+
+// вызов p
+struct Expression * create_p_stmt(struct Expressions_list *expr_list) {
+	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
+	struct Expression *expr = (struct Expression *)malloc(sizeof(struct Expression));
+
+	result = clean_struct_expression(result);
+	expr = clean_struct_expression(expr);
+
+	result->type = p;
+	result->left=NULL;
+
+	expr->type = Id;
+	expr->var = "p";
+	result->right=expr;
+
+	result->expr_List = expr_list;
+	return result;
 }
 
 // инициализация массива

@@ -47,6 +47,15 @@ struct Expression * create_one_expr(enum ExprType Type, struct Expression *rhs);
 // создание оператора класса
 struct Statement *create_class_stmt(struct Name_and_type_var* name,struct Name_and_type_var* base_name,struct Statements_list *stmt);
 
+struct Expression * create_expr(enum ExprType exprType);
+
+struct Expression * create_expr_const(int var);
+struct Expression * create_expr_id(int var);
+struct Expression * create_expr_string(char * str);
+struct Expression * create_expr_int(int var);
+struct Expression * create_expr_float(float var);
+struct Expression * create_expr_bool(int var);
+
 // создание выражений из переменных
 struct Expression * create_expr(enum ExprType exprType);
 
@@ -62,6 +71,12 @@ struct Expression * create_call_array_expr(struct Expression *name,struct Expres
 
 // вызов метода
 struct Expression * create_call_method(struct Expression *obj,struct Name_and_type_var *name,struct Expressions_list *expr_list);
+
+// вызов print
+struct Expression * create_print_stmt(struct Expressions_list *expr_list);
+
+// вызов p
+struct Expression * create_p_stmt(struct Expressions_list *expr_list);
 
 // инициализация массива
 struct Expression * create_array(struct Expressions_list *expr_l);

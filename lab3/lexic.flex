@@ -170,13 +170,18 @@ struct Name_and_type_var *tempVar;	// переменная для записи разобранной переменн
 	return TWOPOINT;
 }
  
-[+-]?{DIGIT}* {
+0 {
+	yylval.int_const = atoi("0");
+	return INT;
+}
+
+[+-]?[1-9]{DIGIT}* {
 	//printf("Целочисленная константа: %s \n", yytext);
 	yylval.int_const  = atoi(yytext);
 	return INT;
 }
 
-[-+]?{DIGIT}*\.?{DIGIT}+([eE][-+]?{DIGIT}+)? {
+[-+]?{DIGIT}*\.{DIGIT}+([eE][-+]?{DIGIT}+)? {
 	sscanf(yytext, "%g", &_float);
 	//printf("Дробная константа: %g \n", _float);
 	yylval.float_const  = _float;
@@ -310,6 +315,16 @@ true {
 	//printf("Ключевое слово: %s\n", yytext);
 	yylval.bool_const = 1;
 	return BOOL;
+}
+
+print {
+	//printf("Метод для работы с консолью: %s\n", yytext);
+	return PRINT;
+}
+
+p  {
+	//printf("Метод для работы с консолью: %s\n", yytext);
+	return P;
 }
 
 {ID} {
