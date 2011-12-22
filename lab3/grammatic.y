@@ -30,8 +30,10 @@ struct Program *prg;
 %type <stm>class_member
 %type <stm_l>class_member_list
 %type <stm>method_member
+%type <stm>method_member_s
 %type <stm_l>method_members
 %type <stm_l>method_members_ne
+%type <stm_l>method_members_ne_do
 %type <exp>expr
 %type <exp_l>expr_list
 %type <stm_l>stmt_list
@@ -126,10 +128,17 @@ method_member: expr NL		{$$ = create_stmt($1)}
 	| RETURN expr NL		{$$ = create_return_stmt($2)}
 	| BREAK NL				{$$ = create_break_stmt()}
 	;
-	
+method_member_s: expr		{$$ = create_stmt($1)}		
+	| if_stmt 			{$$=$1}			
+	| for_stmt		{$$=$1}	
+	| while_stmt		{$$=$1}	
+	| until_stmt		{$$=$1}	
+	;
 method_members_ne: method_member		{$$ = create_stmt_list($1)}
 	| method_members_ne method_member	{$$ = add_to_stmt_list($1,$2)}
 	;
+method_members_ne_do: method_member_s			{$$ = create_stmt_list($1)}
+	|method_members_ne_do ',' method_member_s	{$$ = add_to_stmt_list($1,$3)}
 	
 method_members: method_members_ne		{$$=$1}
 	|									{$$=NULL}
@@ -153,19 +162,22 @@ class_member_list: class_member 			{$$=create_stmt_list($1)}
 if_stmt: IF expr THEN method_members_ne END 									{$$=create_if_stmt($2, $4, NULL)}
 		| IF expr THEN method_members_ne ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6)}
 		| IF expr NL method_members_ne END 										{$$=create_if_stmt($2, $4, NULL)}
-		| IF expr NL method_members_ne ELSE method_members_ne END 				{$$=create_if_stmt($2, $4, $6)}
-		;
+		| IF expr THEN method_members_ne_do NL END 									{$$=create_if_stmt($2, $4, NULL)}
+		| IF expr THEN method_members_ne_do ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6)}
 		
 for_stmt: FOR expr IN expr DO method_members_ne END {$$=create_for_stmt($2,$4, $6)}		
 		| FOR expr IN expr NL method_members_ne END {$$=create_for_stmt($2,$4, $6)}
+		| FOR expr IN expr DO method_members_ne_do END {$$=create_for_stmt($2,$4, $6)}		
 		;
 		
 while_stmt: WHILE expr DO method_members_ne END 	{$$=create_while_stmt($2,$4)}
 		| WHILE expr NL method_members_ne END		{$$=create_while_stmt($2,$4)}
+		|WHILE expr DO method_members_ne_do END 	{$$=create_while_stmt($2,$4)}
 		;
 	
 until_stmt: UNTIL expr DO method_members_ne END 	{$$=create_until_stmt($2,$4)}
 		| UNTIL expr NL method_members_ne END 		{$$=create_until_stmt($2,$4)}
+		| UNTIL expr DO method_members_ne_do END 	{$$=create_until_stmt($2,$4)}
 		;
 
 expr_list: expr_list ',' expr						{$$=add_to_expr_list($1,$3);}
