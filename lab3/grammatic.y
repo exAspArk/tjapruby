@@ -162,8 +162,9 @@ class_member_list: class_member 			{$$=create_stmt_list($1)}
 if_stmt: IF expr THEN method_members_ne END 									{$$=create_if_stmt($2, $4, NULL)}
 		| IF expr THEN method_members_ne ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6)}
 		| IF expr NL method_members_ne END 										{$$=create_if_stmt($2, $4, NULL)}
+		| IF expr NL method_members_ne ELSE NL method_members_ne END				{$$=create_if_stmt($2, $4, $7)}		
 		| IF expr THEN method_members_ne_do END 									{$$=create_if_stmt($2, $4, NULL)}
-		| IF expr THEN method_members_ne_do ELSE method_members_ne END				{$$=create_if_stmt($2, $4, $6)}
+		| IF expr THEN method_members_ne_do ELSE method_members_ne_do END			{$$=create_if_stmt($2, $4, $6)}
 		
 for_stmt: FOR expr IN expr DO method_members_ne END {$$=create_for_stmt($2,$4, $6)}		
 		| FOR expr IN expr NL method_members_ne END {$$=create_for_stmt($2,$4, $6)}
