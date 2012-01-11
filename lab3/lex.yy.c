@@ -2576,7 +2576,7 @@ void yyerror(char *err) {
    printf("%s on line %d - %s\n", err, yylineno, yytext);
 }
 
-int main(int argc, char* argv[]) {
+int start(int argc, char* argv[]) {
     char str[100] = "";
 	setlocale(LC_CTYPE, ".1251");
     
@@ -2594,6 +2594,6 @@ int main(int argc, char* argv[]) {
 	tree_print();
 	fclose(tree);
 	fclose(yyin);
-	system("pause");
+	//system("pause");
     return 0;
 }

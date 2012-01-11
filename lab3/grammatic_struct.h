@@ -60,7 +60,9 @@ enum Expr_type {
 	Doublecolon,	// :: 
 	Super,
 	print,
-	p
+	p,
+	PointAssign,	/* .= */
+	ArrayAssign	/* []= */
 };
 
 enum Stmt_type {
@@ -78,7 +80,9 @@ enum Stmt_type {
 	Expr,
 	stPublic,
 	stPrivate,
-	stProtected
+	stProtected,
+	WhileFor,	// while, сделанный из for
+	WhileUntil	// while, сделанный из until
 };
 
 struct Expression {
@@ -91,14 +95,17 @@ struct Expression {
 	int	   bool_const;				// логическое значение 
 									// 0 - false
 									// 1 - true
+	struct Expression *Expr_base; 
 
 	struct Name_and_type_var * var;		// тип/доступ переменной
 	struct Expressions_list * expr_List; //список выражений
 	struct Expression * left;			// левый операнд
 	struct Expression * right;			// правый операнд
-
+	enum Access_rule level;			//уровень доступа
+	int numLocalVar;				// номер переменной
     char* name; // имя
 	struct Expression * next;		// следущее выражение
+	struct ConstClass * constClass;	//
 };
 
 struct Expressions_list {
@@ -111,11 +118,12 @@ struct Statement {
 	struct Expression * expr;			// выражение для оператора
 	struct Expression * id;				//идентификатор
 	struct Expression * expr_base;   	// предок класса
-	struct ExpressionsList * expr_list;	// выражения для оператора
+	struct Expressions_list * expr_list;	// выражения для оператора
 	struct Statements_list * block;		// указатель на блок 
 	struct Statement * next;			// следующий оператор
 	struct Expressions_list * id_list; 	// список параметров
 	struct Statement * def_body;	  		// функция (используется при создании правил доступа)
+	int isStatic; //0 - нестатичная ф-я
 
 	// часть для классов
 	struct Name_and_type_var* name_class;			// имя класса
