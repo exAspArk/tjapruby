@@ -110,6 +110,7 @@ struct Expression* clean_struct_expression(struct Expression* expr)
 	{
 		expr->expr_List = NULL;
 		expr->left = NULL;
+		expr->Expr_base=NULL;
 		expr->next = NULL;
 		expr->right = NULL;
 		expr->var = NULL;
