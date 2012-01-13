@@ -44,7 +44,7 @@ QDataStream & operator << (QDataStream &stream, const MethodClass *method)
 	stream << method->num;
 	stream << method->tableLocalVar;
 	stream << method->tableConstatnVar;
-  stream << method->tableParam;
+    stream << method->tableParam;
 	return stream;
 }
 // запись в таблицу локальных переменных
@@ -1556,15 +1556,30 @@ QString SemanticStatementTable(struct Statement *stmt)
 				currentMetod->level = Public;
                 currentMetod->num = tableClass[currentClass]->tableMethodClass.count();
 				currentMetod->isStatic = false;
+                
+                //количество параметров метода
+                int params = 0;
+                if(stmt->def_body->id_list != NULL) {
+                    struct Expression *id = stmt->def_body->id_list->expr;
+	                while(id) {
+		                params++;
+		                id=id->next;
+	                }
+                }
+
+                currentMetod->countArgs = params;
 
                 QString methodName = stmt->def_body->expr->var->name_var;
-                QString methodDescriptor = QString("(%1)L" + currentClass + ";").arg(SemanticIdintifierListTable(stmt->def_body->id_list));
                 if(methodName == "initialize") {
                     methodName = "<init>";
+                }
+				currentMetod->name = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, methodName);
+
+                QString methodDescriptor = QString("(%1)L" + currentClass + ";").arg(SemanticIdintifierListTable(stmt->def_body->id_list));
+                if(methodName == "<init>") {
                     methodDescriptor = QString("(%1)L").arg(SemanticIdintifierListTable(stmt->def_body->id_list)) + currentClass + ";";
                 }
 
-				currentMetod->name = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, methodName);
 				if(!currentMetod->isStatic)
 					findLocalVar(currentMetod->tableLocalVar,"self", currentMetod->tableLocalVar.size()+1);
 				currentMetod->descriptor = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, methodDescriptor);
@@ -1609,7 +1624,7 @@ QString SemanticStatementTable(struct Statement *stmt)
 					
 					// записываем имя и тип метода в таблицу констант для Dynamic
 					ConstClass * nameM = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, currentMetod->name->utf8);
-					ConstClass * typeM = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, "()L" + currentClass + ";");
+                    ConstClass * typeM = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, currentMetod->descriptor->utf8);
 					find_NameAndType_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass,nameM,typeM);
 					newMenthod->name = nameM;
 					newMenthod->descriptor = typeM;
@@ -1939,8 +1954,11 @@ void SemanticExpressionTable(struct Expression *expr)
 				break;
 			case LOCALVAR:		// локальная переменная: var
 				{
-
-                if(rightClass.count() != 1) {
+                
+                if(rightClass.count() == 0) {
+                    rightClass = "LBaseVarClass;";
+                }
+                else if(rightClass.count() != 1 && rightClass[0] != 'L') {
                     rightClass = "L" + rightClass + ";";
                 }
 				ConstClass * name_var = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, expr->var->name_var);
@@ -2030,7 +2048,7 @@ void SemanticExpressionTable(struct Expression *expr)
                         }
                     }
                     //объявление
-                    else {
+                    else if (rightClass.count() != 1 && rightClass[0] != 'L'){
                         rightClass = "L" + rightClass + ";";
                     }
 
@@ -2043,14 +2061,14 @@ void SemanticExpressionTable(struct Expression *expr)
 				    name_var = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, expr->var->name_var);
                     type_var = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, rightClass);
 				    name_and_type = find_NameAndType_InTableConstClass(tableClass[currentClass]->tableConstClass, name_var, type_var);
-				    class_name = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, className);
+				    class_name = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, currentClass);
 				    _class = find_Class_InTableConstClass(tableClass[currentClass]->tableConstClass,class_name);
 				    field_ref = find_Fieldref_InTableConstClass(tableClass[currentClass]->tableConstClass, _class, name_and_type);
 
                     global_class_N = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, expr->var->name_var);
 				    global_class_T = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, rightClass);
 				    global_class_NT = find_NameAndType_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_N, global_class_T);
-				    global_class_CU = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, className);
+				    global_class_CU = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, currentClass);
 				    global_class_C = find_Class_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_CU);
 				    global_class_M = find_Fieldref_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_C, global_class_NT);
 
@@ -2297,6 +2315,46 @@ void SemanticExpressionTable(struct Expression *expr)
             // если это не вызов метода new, то добавляем вызов - иначе пропускаем
             if(strcmp(expr->right->var->name_var, "new") != 0)
             {
+
+                //проверка, описан ли такой класс
+                rightClass = expr->left->var->name_var;
+                QList<QString> classes = tableClass.keys();
+                bool found = false;
+                for(int i = 0; !found && i < classes.count(); i++) {
+                    if(classes[i] == rightClass) {
+                        found = true;
+                        i = classes.count();
+                    }
+                }
+                if(!found) {
+                    _set_errno(1);
+				    perror("unknown class");
+				    system("pause");
+					exit(0);
+                }
+
+                //количество параметров метода
+                int params = 0;
+                if(expr->expr_List != NULL) {
+                    struct Expression *id = expr->expr_List->expr;
+	                while(id) {
+		                params++;
+		                id=id->next;
+	                }
+                }
+                found = false;
+                for(int i = 0; !found && i < tableClass[rightClass]->tableMethodClass.count(); i++) {
+                    if(tableClass[rightClass]->tableMethodClass[i]->name->utf8 == expr->right->var->name_var && tableClass[rightClass]->tableMethodClass[i]->countArgs == params) {
+                        found = true;
+                    }
+                }
+                if(!found) {
+                    _set_errno(1);
+				    perror("unknown method");
+				    system("pause");
+					exit(0);
+                }
+
 				SemanticExpressionTable(expr->left);
 				ConstClass *name_method = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,expr->right->var->name_var);
 				ConstClass *type_method = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,QString("(%1)LBaseVarClass;").arg(SemanticIdintifierListTable(expr->expr_List)));
@@ -2334,6 +2392,21 @@ void SemanticExpressionTable(struct Expression *expr)
 			else //new
             {
                 rightClass = expr->left->var->name_var;
+                
+                //проверка, что такой класс уже описан
+                QList<QString> classes = tableClass.keys();
+                bool found = false;
+                for(int i = 0; !found && i < classes.count(); i++) {
+                    if(classes[i] == rightClass) {
+                        found = true;
+                    }
+                }
+                if(!found) {
+                    _set_errno(1);
+				    perror("unknown class");
+				    system("pause");
+					exit(0);
+                }
 
 			    // добавляем консруктор для класса   
                 ConstClass *name_method = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,"<init>");
@@ -2440,6 +2513,53 @@ void SemanticExpressionTable(struct Expression *expr)
                 */
 		case Super:
 			{
+                QString parentClass = tableClass[currentClass]->nameClassParent->const1->utf8;
+                //проверка, существует ли родительский класс
+                if(parentClass == "LBaseVarClass") {
+                    _set_errno(1);
+                    perror("have no parent class");
+                    system("pause");
+                    exit(0);
+                }
+                else {
+                    //проверка, существует ли класс
+                    QList<QString> classes = tableClass.keys();
+                    bool found = false;
+                    for(int i = 0; !found && i < classes.count(); i++) {
+                        if(classes[i] == parentClass) {
+                            found = true;
+                            i = classes.count();
+                        }
+                    }
+                    if(!found) {
+                        _set_errno(1);
+				        perror("unknown class");
+				        system("pause");
+				        exit(0);
+                    }
+
+                    //проверка, существует ли метод и совпадает ли количество параметров
+                    int params = 0;
+                    if(expr->expr_List != NULL) {
+                        struct Expression *id = expr->expr_List->expr;
+	                    while(id) {
+		                    params++;
+		                    id=id->next;
+	                    }
+                    }
+                    found = false;
+                    for(int i = 0; !found && i < tableClass[parentClass]->tableMethodClass.count(); i++) {
+                        if(tableClass[parentClass]->tableMethodClass[i]->name->utf8 == currentMetod->name->utf8 && tableClass[parentClass]->tableMethodClass[i]->countArgs == params) {
+                            found = true;
+                        }
+                    }
+                    if(!found) {
+                        _set_errno(1);
+				        perror("unknown parent method");
+				        system("pause");
+				        exit(0);
+                    }
+                }
 				// вызов родительского класса
 				// currentClass - имя текущего класса
 				// currentMethod - текущий метод
@@ -2448,7 +2568,7 @@ void SemanticExpressionTable(struct Expression *expr)
 				ClassItem  * _baseClass = tableClass[currentClass];
 				_baseClass = tableClass[_baseClass->nameClassParent->const1->utf8];
 				ConstClass * _methBaseClass = find_Utf8_InTableConstClass(_baseClass->tableConstClass, _baseNameMeth->utf8);
-				ConstClass * _descrBaseMeth = find_Utf8_InTableConstClass(_baseClass->tableConstClass, QString("(%1)LBaseVarClass;").arg(SemanticIdintifierListTable(expr->expr_List)));
+				ConstClass * _descrBaseMeth = find_Utf8_InTableConstClass(_baseClass->tableConstClass, QString("(%1)L").arg(SemanticIdintifierListTable(expr->expr_List)) + parentClass + ";");
 
 				ConstClass * _descrMethod = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,_descrBaseMeth->utf8);
 				ConstClass * _nameMethod = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, _baseNameMeth->utf8);
