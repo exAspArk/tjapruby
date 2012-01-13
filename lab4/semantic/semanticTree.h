@@ -38,7 +38,8 @@ enum TypeConstClass
 {
 	publicRule, privateRule, protectedRule
 };*/
-//Структура константа класса
+
+//Структура - константа классов
 struct ConstClass
 {
 	ConstClass()
@@ -59,7 +60,8 @@ struct ConstClass
 	ConstClass * const1;	// первый номер константы класса
 	ConstClass * const2;	// второй номер константы класса - нужна для полей, требующих 
 };
-//Структура поле класса
+
+//Структура - поле класса
 struct FieldClass
 {
 	FieldClass()
@@ -90,7 +92,7 @@ struct ConstInClass
 	ConstClass * name;			//номер константы CONSTANT_Utf8 с именем поля
 	ConstClass * descriptor;	//номер константы CONSTANT_Utf8 с дескриптором поля
 };
-//Структура локалная перменная
+//Структура - локалная перменная
 struct LocalVar
 {
   LocalVar()
@@ -103,7 +105,7 @@ struct LocalVar
 	int posFirst; //позиция первого использования
 	int posLast;  //позиция последнего использования
 };
-
+//Структура - константа класса
 struct ConstantVar
 {
 	ConstantVar()
@@ -114,14 +116,13 @@ struct ConstantVar
 		level = Public;
 		isStatic = true;
 	}
-	QString name;	// name of constant var
-	int posFirst;	// first use var
-	int posLast;	// last use var
-	Access_rule level;	// level of access to the var - default public
-	bool isStatic;
+	QString name;	    //имя переменной
+	int posFirst;	    //индекс первого использования переменной
+	int posLast;	    //индекс последнего использования переменной
+	Access_rule level;	//уровень доступа, по умолчанию public
+	bool isStatic; 
 };
-
-// Struct of object var - @@var
+//Структура - статическая переменная класса (@@var)
 struct ObjectVar	
 {
 	ObjectVar()
@@ -131,13 +132,13 @@ struct ObjectVar
 		posLast = -1;
 		level = Private;
 	}
-	QString name;	// name of object var
-	int posFirst;	// first use var
-	int posLast;	// last use var
-	Access_rule level;	// level of access to the var - default private
+	QString name;	    //имя переменной
+	int posFirst;	    //первый раз использовалась
+	int posLast;	    //последний раз использовалась
+	Access_rule level;	//уровень доступа, по умолчанию private
 };
 
-// Struct of class var - @var
+//Структура - переменная класса (@var)
 struct ClassVar
 {
 	ClassVar()
@@ -147,10 +148,10 @@ struct ClassVar
 		posLast = -1;
 		level = Protected;
 	}
-	QString name;	// name of class var
-	int posFirst;	// first use var
-	int posLast;	// last use var
-	Access_rule level;	// level of access to the var - default Protected
+	QString name;	    //имя переменной
+	int posFirst;	    //первый раз использовалась
+	int posLast;	    //последний раз использовалась
+	Access_rule level;	//уровень доступа, по умолчанию private
 };
 struct GlobalVar
 {
@@ -161,10 +162,10 @@ struct GlobalVar
 		posLast = -1;
 		level = Public;
 	}
-	QString name;
-	int posFirst;
-	int posLast;
-	Access_rule level;
+	QString name;	    //имя переменной
+	int posFirst;	    //первый раз использовалась
+	int posLast;	    //последний раз использовалась
+	Access_rule level;	//уровень доступа, по умолчанию private
 };
 //структура метод класса
 struct MethodClass
@@ -177,6 +178,7 @@ struct MethodClass
 		descriptor = 0;
 		level = Public;
 		methodCode=QByteArray();
+        countArgs = 0;
 	}
 	int num;						// номер метода в таблице методов класса (начинается с 0)
 	Access_rule level;				// уровень доступа к методу класса
@@ -184,9 +186,10 @@ struct MethodClass
 	ConstClass * name;				// номер константы CONSTANT_Utf8 с именем метода
 	ConstClass * descriptor;		// номер константы CONSTANT_Utf8 с дескриптором метода
 	QList<LocalVar*> tableLocalVar;	// таблица локальных переменных
-	QList<ConstantVar*> tableConstatnVar;	// table of constant var
+	QList<ConstantVar*> tableConstatnVar;	// таблица констант
 	QList<LocalVar*> tableParam; //таблица параметров метода
 	QByteArray methodCode;				// Java Byte Code метода.
+    int countArgs;                  // количество передаваемых параметров
 };
 //структура описания класса
 struct ClassItem
@@ -206,9 +209,9 @@ struct ClassItem
 	ConstClass * nameClass;					//номер константы класса типа CONSTANT_Class 
 	ConstClass * nameClassParent;			//номер константы родительского класса типа CONSTANT_Class
 	
-	QList<ObjectVar*> tableObjectVar; //- @ - поле
-	QList<ClassVar*> tableClassVar;
-	QList<GlobalVar*> tableGLobalVar;
+	QList<ObjectVar*> tableObjectVar;       // @ - поле
+	QList<ClassVar*> tableClassVar;         // переменные класса
+	QList<GlobalVar*> tableGLobalVar;       // глобальные переменные
 	Statement *inTree;						// ссылка на узел дерева в таблице
 };
 QDataStream & operator << (QDataStream &stream, const ClassItem * item);
