@@ -129,7 +129,7 @@ Grammar
   105     | expr '.' ID
   106     | expr '.' ID '(' ')'
   107     | expr '.' ID '(' expr_list ')'
-  108     | PRINT '(' expr ')'
+  108     | GETS '(' expr ')'
   109     | PUTS '(' expr ')'
   110     | ID '(' ')'
   111     | ID '(' expr_list ')'
@@ -176,7 +176,7 @@ BREAK (270) 22
 END (271) 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 62 63 64 65
 RETURN (272) 12 21
 UNTIL (273) 57 58 59
-PRINT (274) 108
+GETS (274) 108
 PUTS (275) 109
 CONST (276) 64 65 70
 ID (277) 35 37 38 39 62 63 68 69 71 105 106 107 110 111
@@ -280,7 +280,7 @@ state 0
     IF       shift, and go to state 8
     RETURN   shift, and go to state 9
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -361,7 +361,7 @@ state 6
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -388,7 +388,7 @@ state 7
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -418,7 +418,7 @@ state 8
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -443,7 +443,7 @@ state 9
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -470,7 +470,7 @@ state 10
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -490,7 +490,7 @@ state 10
 
 state 11
 
-  108 expr: PRINT . '(' expr ')'
+  108 expr: GETS . '(' expr ')'
 
     '('  shift, and go to state 45
 
@@ -562,7 +562,7 @@ state 20
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -587,7 +587,7 @@ state 21
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -612,7 +612,7 @@ state 22
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -637,7 +637,7 @@ state 23
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -662,7 +662,7 @@ state 24
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -710,7 +710,7 @@ state 27
     IF       shift, and go to state 8
     RETURN   shift, and go to state 9
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -879,7 +879,7 @@ state 39
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1210,12 +1210,12 @@ state 44
 
 state 45
 
-  108 expr: PRINT '(' . expr ')'
+  108 expr: GETS '(' . expr ')'
 
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1240,7 +1240,7 @@ state 46
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1266,7 +1266,7 @@ state 47
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1597,7 +1597,7 @@ state 63
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1622,7 +1622,7 @@ state 64
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1647,7 +1647,7 @@ state 65
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1672,7 +1672,7 @@ state 66
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1697,7 +1697,7 @@ state 67
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1722,7 +1722,7 @@ state 68
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1747,7 +1747,7 @@ state 69
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1772,7 +1772,7 @@ state 70
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1797,7 +1797,7 @@ state 71
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1822,7 +1822,7 @@ state 72
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1847,7 +1847,7 @@ state 73
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1872,7 +1872,7 @@ state 74
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1897,7 +1897,7 @@ state 75
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1922,7 +1922,7 @@ state 76
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1947,7 +1947,7 @@ state 77
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1972,7 +1972,7 @@ state 78
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -1997,7 +1997,7 @@ state 79
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2022,7 +2022,7 @@ state 80
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2047,7 +2047,7 @@ state 81
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2072,7 +2072,7 @@ state 82
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2097,7 +2097,7 @@ state 83
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2122,7 +2122,7 @@ state 84
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2147,7 +2147,7 @@ state 85
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2181,7 +2181,7 @@ state 87
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2235,7 +2235,7 @@ state 90
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2305,7 +2305,7 @@ state 94
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2345,7 +2345,7 @@ state 95
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2379,7 +2379,7 @@ state 96
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2413,7 +2413,7 @@ state 97
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2454,7 +2454,7 @@ state 98
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2500,7 +2500,7 @@ state 100
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2540,7 +2540,7 @@ state 101
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -2593,7 +2593,7 @@ state 102
   105     | expr . '.' ID
   106     | expr . '.' ID '(' ')'
   107     | expr . '.' ID '(' expr_list ')'
-  108     | PRINT '(' expr . ')'
+  108     | GETS '(' expr . ')'
   116     | expr . '[' expr ']'
 
     ORWORD       shift, and go to state 63
@@ -2713,7 +2713,7 @@ state 107
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4002,7 +4002,7 @@ state 143
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4048,7 +4048,7 @@ state 146
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4221,7 +4221,7 @@ state 158
     END      shift, and go to state 201
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4371,7 +4371,7 @@ state 165
     END      shift, and go to state 204
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4474,7 +4474,7 @@ state 167
     END      shift, and go to state 208
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4526,7 +4526,7 @@ state 169
     END      shift, and go to state 212
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4565,7 +4565,7 @@ state 170
     END      shift, and go to state 213
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4613,7 +4613,7 @@ state 172
     END      shift, and go to state 215
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4639,7 +4639,7 @@ state 172
 
 state 173
 
-  108 expr: PRINT '(' expr ')' .
+  108 expr: GETS '(' expr ')' .
 
     $default  reduce using rule 108 (expr)
 
@@ -4733,7 +4733,7 @@ state 178
     NIL      shift, and go to state 2
     SELF     shift, and go to state 3
     SUPER    shift, and go to state 5
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -4993,7 +4993,7 @@ state 203
     FOR      shift, and go to state 7
     IF       shift, and go to state 8
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5037,7 +5037,7 @@ state 205
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5077,7 +5077,7 @@ state 206
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5115,7 +5115,7 @@ state 207
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5158,7 +5158,7 @@ state 209
     FOR      shift, and go to state 7
     IF       shift, and go to state 8
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5319,7 +5319,7 @@ state 226
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5464,7 +5464,7 @@ state 234
     END      shift, and go to state 246
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5512,7 +5512,7 @@ state 236
     END      shift, and go to state 248
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5551,7 +5551,7 @@ state 237
     END      shift, and go to state 249
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5597,7 +5597,7 @@ state 239
     BREAK    shift, and go to state 142
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14
@@ -5714,7 +5714,7 @@ state 251
     END      shift, and go to state 253
     RETURN   shift, and go to state 143
     UNTIL    shift, and go to state 10
-    PRINT    shift, and go to state 11
+    GETS     shift, and go to state 11
     PUTS     shift, and go to state 12
     CONST    shift, and go to state 13
     ID       shift, and go to state 14

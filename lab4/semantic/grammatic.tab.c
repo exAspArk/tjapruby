@@ -126,7 +126,7 @@ struct Program *prg;
      END = 271,
      RETURN = 272,
      UNTIL = 273,
-     PRINT = 274,
+     GETS = 274,
      PUTS = 275,
      CONST = 276,
      ID = 277,
@@ -562,7 +562,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "CLASS", "NIL", "SELF", "DEF", "SUPER",
   "WHILE", "FOR", "THEN", "DO", "IF", "ELSE", "IN", "BREAK", "END",
-  "RETURN", "UNTIL", "PRINT", "PUTS", "CONST", "ID", "NL", "PUBLIC",
+  "RETURN", "UNTIL", "GETS", "PUTS", "CONST", "ID", "NL", "PUBLIC",
   "PRIVATE", "PROTECTED", "INT", "FLOAT", "STRING", "BOOL", "ORWORD",
   "ANDWORD", "NOTWORD", "'='", "DIVASSIGN", "MULASSIGN", "SUBASSIGN",
   "ADDASSIGN", "THREEPOINT", "TWOPOINT", "AND", "OR", "'-'", "'+'", "'*'",
@@ -2610,7 +2610,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 241 "grammatic.y"
-    {(yyval.exp) = create_print_stmt((yyvsp[(3) - (4)].exp));}
+    {(yyval.exp) = create_gets_stmt((yyvsp[(3) - (4)].exp));}
     break;
 
   case 110:

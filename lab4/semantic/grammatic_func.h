@@ -72,8 +72,8 @@ struct Expression * create_call_array_expr(struct Expression *name,struct Expres
 // גûחמג לועמהא
 struct Expression * create_call_method(struct Expression *obj,struct Name_and_type_var *name,struct Expressions_list *expr_list);
 
-// גûחמג print
-struct Expression * create_print_stmt(struct Expressions_list *expr_list);
+// גûחמג gets
+struct Expression * create_gets_stmt(struct Expressions_list *expr_list);
 
 // גûחמג puts
 struct Expression * create_puts_stmt(struct Expressions_list *expr_list);

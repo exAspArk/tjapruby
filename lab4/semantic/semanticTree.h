@@ -244,6 +244,7 @@ void addCode();
 void initialGlobalClass();
 
 void addClassToTable(QString newClass,QString classParent = QString(""));
+void CreateIOTable();
 
 // возвращает номер локальной в классе 
 // если такой константы нет, то добавляет его в таблицу и возвращает его номер

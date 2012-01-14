@@ -317,9 +317,9 @@ true {
 	return BOOL;
 }
 
-print {
+gets {
 	//printf("Метод для работы с консолью: %s\n", yytext);
-	return PRINT;
+	return GETS;
 }
 
 puts  {

@@ -369,33 +369,35 @@ void initialGlobalClass()
 
 void addClassToTable(QString newClass,QString classParent)
 {
-	ClassItem * class_g = new ClassItem(); // Создаем класс
+    if(!tableClass.contains(newClass)) {
+	    ClassItem * class_g = new ClassItem(); // Создаем класс
 
-	//ConstClass *const_class1 = new ConstClass();
-	ConstClass *const_class1 = find_Utf8_InTableConstClass(class_g->tableConstClass, "Code");
+	    //ConstClass *const_class1 = new ConstClass();
+	    ConstClass *const_class1 = find_Utf8_InTableConstClass(class_g->tableConstClass, "Code");
 	
 
-	// Константа Class
-	ConstClass * const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,newClass));
-	class_g->nameClass = const_class;
+	    // Константа Class
+	    ConstClass * const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,newClass));
+	    class_g->nameClass = const_class;
 
-	if(!classParent.isEmpty())
-	{
-		// Константа родительского Class
-		const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,classParent));
-		class_g->nameClassParent = const_class;
-	}
-	else
-	{
-		if(newClass != GLOBAL_CLASS)
-		{
-			const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,"LBaseVarClass"));
-			class_g->nameClassParent = const_class;
-		}
-	}
+	    if(!classParent.isEmpty())
+	    {
+		    // Константа родительского Class
+		    const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,classParent));
+		    class_g->nameClassParent = const_class;
+	    }
+	    else
+	    {
+		    if(newClass != GLOBAL_CLASS)
+		    {
+			    const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,"LBaseVarClass"));
+			    class_g->nameClassParent = const_class;
+		    }
+	    }
 
-	//сохранение класса в таблице классов
-	tableClass.insert(newClass,class_g);
+	    //сохранение класса в таблице классов
+	    tableClass.insert(newClass,class_g);
+    }
 	// добавдение "Code"
 	//ConstClass *const_class1 = new ConstClass();
 	//const_class1->type = CONSTANT_Utf8;
@@ -971,7 +973,7 @@ Statement * semantic_stmt(struct Statement *stmt)
 			return stmt;
 			break;
 
-		case Print:
+		case Gets:
 			stmt->expr = semantic_expr(stmt->expr);
 			return stmt;
 			break;
@@ -1236,7 +1238,7 @@ Expression * semantic_expr(struct Expression *expr)
 			expr->right = semantic_expr(expr->right);
 			return expr;
 			break;
-        case Print:
+        case Gets:
 			expr->right = semantic_expr(expr->right);
 			return expr;
 			break;
@@ -1836,17 +1838,13 @@ QString SemanticStatementTable(struct Statement *stmt)
 			SemanticStatmentListTable(stmt->block);
 			break;
 
-		/*case Print:
-			SemanticExpressionListTable(stmt->Expr_List);
-			break;
+		//case Puts:
+		//	SemanticExpressionTable(stmt->expr);
+		//	break;
 
-		case Puts:
-			SemanticExpressionTable(stmt->Expr);
-			break;
-
-		case Gets:
-			//SemanticExpressionTable(stmt->Expr);
-			break;*/
+		//case Gets:
+		//	SemanticExpressionTable(stmt->expr);
+		//	break;
 		}
 		return QString();
 	}
@@ -2580,13 +2578,157 @@ void SemanticExpressionTable(struct Expression *expr)
 				SemanticExpressionListTable(expr->expr_List);
 			}
 			break;
-		}
+
+        case Puts:
+            CreateIOTable();
+            {
+                SemanticExpressionTable(expr->right);
+                global_class_N  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "puts");
+                if(rightClass == "") {
+                    rightClass = "LBaseVarClass;";
+                }
+                else if(rightClass[0] != 'L' && rightClass.count() != 1) {
+                    rightClass = "L" + rightClass + ";";
+                }
+			    global_class_T  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,QString("(" + rightClass + ")V;"));
+			    global_class_NT = find_NameAndType_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_N, global_class_T);
+			    global_class_CU = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "IO");
+			    global_class_C  = find_Class_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_CU);
+			    global_class_M  = find_Methodref_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_C, global_class_NT);
+			    
+                global_class_T  = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass,QString("(" + rightClass + ")V;"));
+			    global_class_NT = find_NameAndType_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_N, global_class_T);
+			    global_class_CU = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, "IO");
+			    global_class_C  = find_Class_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_CU);
+			    global_class_M  = find_Methodref_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_C, global_class_NT);
+
+			    expr->constClass = global_class_M;
+            }
+            break;
+        case Gets:
+            CreateIOTable();
+            {
+                SemanticExpressionTable(expr->right);
+                global_class_N  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "puts");
+                if(rightClass == "") {
+                    rightClass = "LBaseVarClass;";
+                }
+                else if(rightClass[0] != 'L' && rightClass.count() != 1) {
+                    rightClass = "L" + rightClass + ";";
+                }
+			    global_class_T  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass,QString("(" + rightClass + ")V;"));
+			    global_class_NT = find_NameAndType_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_N, global_class_T);
+			    global_class_CU = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "IO");
+			    global_class_C  = find_Class_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_CU);
+			    global_class_M  = find_Methodref_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_C, global_class_NT);
+			    
+                global_class_T  = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass,QString("(" + rightClass + ")V;"));
+			    global_class_NT = find_NameAndType_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_N, global_class_T);
+			    global_class_CU = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, "IO");
+			    global_class_C  = find_Class_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_CU);
+			    global_class_M  = find_Methodref_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_C, global_class_NT);
+
+			    expr->constClass = global_class_M;
+            }
+            break;
+        }
 	}
 	else
 	{
 		return;
 	}
 }	
+
+void CreateIOTable() {
+    QString IO = "IO";
+    if(!tableClass.contains(IO)) {
+
+	    ClassItem * class_g = new ClassItem(); // Создаем класс
+	    ConstClass *const_class1 = find_Utf8_InTableConstClass(class_g->tableConstClass, "Code");
+	    // Константа Class
+	    ConstClass * const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,IO));
+	    class_g->nameClass = const_class;
+		const_class = find_Class_InTableConstClass(class_g->tableConstClass,find_Utf8_InTableConstClass(class_g->tableConstClass,"LBaseVarClass"));
+		class_g->nameClassParent = const_class;
+        //сохранение класса в таблице классов
+	    tableClass.insert(IO,class_g);
+
+        ConstClass * init_n   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "<init>");
+		ConstClass * init_t   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "()V");
+		ConstClass * init_nAt = find_NameAndType_InTableConstClass(tableClass[IO]->tableConstClass, init_n, init_t);
+		ConstClass * init_cU  = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, IO);
+		ConstClass * init_c   = find_Class_InTableConstClass(tableClass[IO]->tableConstClass, init_cU);
+		ConstClass * init_M   = find_Methodref_InTableConstClass(tableClass[IO]->tableConstClass,init_c, init_nAt);
+               
+		init_cU  = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "LBaseVarClass");
+		init_c   = find_Class_InTableConstClass(tableClass[IO]->tableConstClass, init_cU);
+        init_n   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "<init>");
+		init_t   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "()V");
+		init_nAt = find_NameAndType_InTableConstClass(tableClass[IO]->tableConstClass, init_n, init_t);
+		init_M   = find_Methodref_InTableConstClass(tableClass[IO]->tableConstClass,init_c, init_nAt);
+
+        init_n   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "puts");
+		init_t   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "()V");
+		init_nAt = find_NameAndType_InTableConstClass(tableClass[IO]->tableConstClass, init_n, init_t);
+        init_cU  = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, IO);
+		init_c   = find_Class_InTableConstClass(tableClass[IO]->tableConstClass, init_cU);
+		init_M   = find_Methodref_InTableConstClass(tableClass[IO]->tableConstClass,init_c, init_nAt);
+
+        init_n   = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "gets");
+		init_nAt = find_NameAndType_InTableConstClass(tableClass[IO]->tableConstClass, init_n, init_t);
+		init_M   = find_Methodref_InTableConstClass(tableClass[IO]->tableConstClass,init_c, init_nAt);
+
+        ConstClass * global_class_N  = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, "<init>");
+		ConstClass * global_class_T  = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, "()V");
+		ConstClass * global_class_NT = find_NameAndType_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_N, global_class_T);
+		ConstClass * global_class_CU = find_Utf8_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, IO);
+		ConstClass * global_class_C  = find_Class_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_CU);
+		ConstClass * global_class_M  = find_Methodref_InTableConstClass(tableClass[GLOBAL_CLASS]->tableConstClass, global_class_C, global_class_NT);
+
+        if(currentClass != GLOBAL_CLASS) {
+            global_class_N  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "<init>");
+		    global_class_T  = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, "()V");
+		    global_class_NT = find_NameAndType_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_N, global_class_T);
+		    global_class_CU = find_Utf8_InTableConstClass(tableClass[currentClass]->tableConstClass, IO);
+		    global_class_C  = find_Class_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_CU);
+		    global_class_M  = find_Methodref_InTableConstClass(tableClass[currentClass]->tableConstClass, global_class_C, global_class_NT);
+        }
+
+		// Добавляем <init> в таблицу методов	
+		init_n = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "<init>");
+		init_t = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "()V");
+        MethodClass * meth = new MethodClass();
+        meth->num = tableClass[IO]->tableMethodClass.size();
+		meth->name = init_n;
+		meth->descriptor = init_t;
+        meth->isStatic = true;
+		meth->level = Access_rule::Public;
+		findLocalVar(meth->tableLocalVar, "self", meth->tableLocalVar.size()+1);
+		tableClass[IO]->tableMethodClass.append(meth);
+
+        init_n = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "puts");
+        meth = new MethodClass();
+        meth->num = tableClass[IO]->tableMethodClass.size();
+		meth->name = init_n;
+		meth->descriptor = init_t;
+        meth->isStatic = true;
+		meth->level = Access_rule::Public;
+		findLocalVar(meth->tableLocalVar, "self", meth->tableLocalVar.size()+1);
+		findLocalVar(meth->tableLocalVar, "var", meth->tableLocalVar.size()+1);
+		tableClass[IO]->tableMethodClass.append(meth);
+
+        init_n = find_Utf8_InTableConstClass(tableClass[IO]->tableConstClass, "gets");
+        meth = new MethodClass();
+        meth->num = tableClass[IO]->tableMethodClass.size();
+		meth->name = init_n;
+		meth->descriptor = init_t;
+        meth->isStatic = true;
+		meth->level = Access_rule::Public;
+		findLocalVar(meth->tableLocalVar, "self", meth->tableLocalVar.size()+1);
+		findLocalVar(meth->tableLocalVar, "var", meth->tableLocalVar.size()+1);
+        tableClass[IO]->tableMethodClass.append(meth);
+    }
+}
 
 // выводим  idintifer_list
 QString SemanticIdintifierListTable(struct Expressions_list *id_l)

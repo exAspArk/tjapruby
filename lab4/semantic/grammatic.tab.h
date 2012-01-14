@@ -55,7 +55,7 @@
      END = 271,
      RETURN = 272,
      UNTIL = 273,
-     PRINT = 274,
+     GETS = 274,
      PUTS = 275,
      CONST = 276,
      ID = 277,
