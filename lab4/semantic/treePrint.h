@@ -605,15 +605,15 @@ void expr_print(struct Expression *expr)
 			expr_list_print(expr->expr_List);
 			onlyCloseTag("CallMethod");
 			break;
-		case Print:
-			onlyOpenTag("PrintMethod");
+		case Gets:
+			onlyOpenTag("GetsMethod");
 			expr_list_print(expr->expr_List);
-			onlyCloseTag("PrintMethod");
+			onlyCloseTag("GetsMethod");
 			break;
 		case Puts:
-			onlyOpenTag("PMethod");
+			onlyOpenTag("PutsMethod");
 			expr_list_print(expr->expr_List);
-			onlyCloseTag("PMethod");
+			onlyCloseTag("PutsMethod");
 			break;
 		case Super:
 			onlyOpenTag("Super");

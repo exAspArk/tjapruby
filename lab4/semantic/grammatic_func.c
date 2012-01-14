@@ -433,18 +433,18 @@ struct Expression * create_call_method(struct Expression *obj,struct Name_and_ty
 	}
 }
 
-// גûחמג print
-struct Expression * create_print_stmt(struct Expression *expr)
+// גûחמג gets
+struct Expression * create_gets_stmt(struct Expression *expr)
 {
 	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));
 	result = clean_struct_expression(result);
 
-	result->type = Print;
+	result->type = Gets;
 	result->right = expr;
 	return result;
 }
 
-// גûחמג p
+// גûחמג puts
 struct Expression * create_puts_stmt(struct Expression *expr) 
 {
 	struct Expression *result = (struct Expression *)malloc(sizeof(struct Expression));

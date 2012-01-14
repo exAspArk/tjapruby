@@ -64,7 +64,7 @@ struct Program *prg;
 %token END		
 %token RETURN
 %token UNTIL
-%token PRINT
+%token GETS
 %token PUTS
 
 %token<var> CONST	
@@ -238,7 +238,7 @@ expr: CONST													{$$ = create_expr_const($1)}
 	| expr '.' ID											{$$ = create_call_method($1, $3, NULL);}
 	| expr '.' ID '(' ')'									{$$ = create_call_method($1, $3, NULL);}
 	| expr '.' ID '(' expr_list ')'							{$$ = create_call_method($1, $3, $5);}	
-	| PRINT '(' expr ')'								    {$$ = create_print_stmt($3)}
+	| GETS '(' expr ')'								        {$$ = create_gets_stmt($3)}
 	| PUTS '(' expr ')'									    {$$ = create_puts_stmt($3)}
 	| ID '(' ')'											{$$ = create_call_method(NULL, $1, NULL);}
 	| ID '(' expr_list ')'									{$$ = create_call_method(NULL, $1, $3);}

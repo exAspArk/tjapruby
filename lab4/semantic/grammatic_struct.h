@@ -60,7 +60,7 @@ enum Expr_type {
 	Nil,			// nil 
 	Doublecolon,	// :: 
 	Super,
-	Print,
+	Gets,
 	Puts,
     PointAssign,    // .=
     ArrayAssign     // []=
